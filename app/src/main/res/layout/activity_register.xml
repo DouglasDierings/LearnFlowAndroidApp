@@ -32,6 +32,7 @@
             android:layout_centerVertical="true" />
     </RelativeLayout>
 
+
     <!-- Subtitle -->
     <LinearLayout
         android:layout_width="wrap_content"
@@ -42,19 +43,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account? "
+            android:text="Already have an account?"
             android:textSize="14sp"
             android:textColor="@color/white" />
-        <TextView
-            android:id="@+id/login_link"
+        <Button
+            android:id="@+id/btn_log_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Log In"
             android:textSize="14sp"
             android:textColor="@android:color/white"
+            android:background="@android:color/transparent"
             android:textStyle="bold"
-            android:clickable="true"
-            android:focusable="true"/>
+            />
     </LinearLayout>
 
     <!-- Form container -->
@@ -75,22 +76,24 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/first_name"
+                android:id="@+id/edt_firstName_register"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="First Name"
+                android:textColorHint="@color/blue"
                 android:textColor="@color/black"
                 android:padding="10dp"
                 android:background="@drawable/edittext_background"
                 android:layout_marginEnd="10dp"/>
 
             <EditText
-                android:id="@+id/last_name"
+                android:id="@+id/edt_lastName_register"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Last Name"
+                android:textColorHint="@color/blue"
                 android:textColor="@color/black"
                 android:padding="10dp"
                 android:background="@drawable/edittext_background"/>
@@ -98,10 +101,11 @@
 
         <!-- Email -->
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/edt_email_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:textColorHint="@color/blue"
             android:textColor="@color/black"
             android:inputType="textEmailAddress"
             android:padding="10dp"
@@ -110,10 +114,11 @@
 
         <!-- Employee Number -->
         <EditText
-            android:id="@+id/employee_number"
+            android:id="@+id/edt_employee_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Employee Number"
+            android:textColorHint="@color/blue"
             android:textColor="@color/black"
             android:inputType="number"
             android:padding="10dp"
@@ -122,10 +127,11 @@
 
         <!-- Password and Confirm Password -->
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/edt_password_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Set Password"
+            android:textColorHint="@color/blue"
             android:textColor="@color/black"
             android:inputType="textPassword"
             android:padding="10dp"
@@ -133,10 +139,11 @@
             android:layout_marginTop="20dp"/>
 
         <EditText
-            android:id="@+id/confirm_password"
+            android:id="@+id/edt_confirmation_password_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Confirm Password"
+            android:textColorHint="@color/blue"
             android:textColor="@color/black"
             android:inputType="textPassword"
             android:padding="10dp"
@@ -145,7 +152,7 @@
 
         <!-- Register Button -->
         <Button
-            android:id="@+id/register_button"
+            android:id="@+id/btn_login_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="+ Register"
