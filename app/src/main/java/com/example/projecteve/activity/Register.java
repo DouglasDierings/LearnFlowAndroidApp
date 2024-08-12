@@ -48,6 +48,8 @@ public class Register extends AppCompatActivity {
             return insets;
         });
 
+        mAuth = FirebaseAuth.getInstance();
+
         btn_log_in = findViewById(R.id.btn_log_in);
         btn_login_register = findViewById(R.id.btn_login_register);
 
@@ -69,7 +71,7 @@ public class Register extends AppCompatActivity {
                 String passwordConfirmation = edt_confirmation_password_register.getText().toString();
 
 
-                if (!TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(lastName) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(passwordConfirmation)) {
+                if (!TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(lastName) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(employeeNumber) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(passwordConfirmation)) {
                     if (password.equals(passwordConfirmation)) {
                         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
