@@ -72,13 +72,22 @@ public class Login extends AppCompatActivity {
                                         openMainScreen();
                                     } else {
                                         String error = Objects.requireNonNull(task.getException()).getMessage();
-                                        Toast.makeText(Login.this, ""+error, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "" + error, Toast.LENGTH_SHORT).show();
                                         loginProgressBar.setVisibility(View.INVISIBLE);
                                     }
                                 }
                             });
                 }
 
+            }
+        });
+
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, Register.class);
+                startActivity(intent);
+                finish();
             }
         });
 
