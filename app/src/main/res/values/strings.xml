@@ -2,4 +2,11 @@
     <string name="app_name">ProjectEve</string>
     <string name="enter_your_email_and_password_to_log_in">Enter your email and password to log in</string>
     <string name="email">Email</string>
+
+    <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_employees">Employees</string>
+    <string name="menu_sites">Sites</string>
+    <string name="menu_settings">Settings</string>
+
+
 </resources>
