@@ -1,5 +1,6 @@
 package com.example.projecteve.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,12 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.projecteve.MainActivity;
 import com.example.projecteve.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link settingsFragment#newInstance} factory method to
+
  * create an instance of this fragment.
  */
 public class settingsFragment extends Fragment {
@@ -36,12 +38,20 @@ public class settingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
+                openMainScreen();
             }
         });
 
 
-
         return view;
+    }
+
+    private void openMainScreen() {
+        // Use getActivity() as the context
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
+        // Finish the activity to prevent going back to the settings screen after logout
+        getActivity().finish();
     }
 
 

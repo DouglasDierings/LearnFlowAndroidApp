@@ -2,10 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:orientation="vertical"
     android:background="@color/blue"
-    tools:context=".activity.Register">
+    tools:context=".activity.register">
 
     <!-- Back button and title -->
     <RelativeLayout
@@ -149,12 +150,13 @@
             android:background="@drawable/edittext_background"
             android:layout_marginTop="20dp"/>
 
-        <!-- Register Button -->
+        <!-- register Button -->
         <Button
             android:id="@+id/btn_login_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="+ Register"
+            app:backgroundTint="@color/blue"
             android:background="@drawable/button_background"
             android:textColor="@android:color/white"
             android:layout_marginTop="30dp"/>

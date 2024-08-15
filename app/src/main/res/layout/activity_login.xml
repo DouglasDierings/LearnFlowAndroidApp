@@ -2,9 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/main"
-    tools:context=".activity.Login">
+    tools:context=".activity.login">
 
     <!-- Top half with blue background -->
     <RelativeLayout
@@ -111,6 +112,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginTop="31dp"
             android:layout_marginRight="40dp"
+            app:backgroundTint="@color/blue"
             android:background="@drawable/button_background"
             android:text="Sign in"
             android:textColor="@android:color/white" />

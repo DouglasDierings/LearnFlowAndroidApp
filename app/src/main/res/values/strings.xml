@@ -10,5 +10,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="email_instructions">If you do not receive an email within a few minutes, please
+        check your spam folder or try again. Make sure you entered the correct email address.</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="forgot_password_instruction">Please enter your email address below, and we will send you instructions on how to reset your password</string>
+
 
 </resources>

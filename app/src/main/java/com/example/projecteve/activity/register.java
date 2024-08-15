@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -25,7 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Register extends AppCompatActivity {
+public class register extends AppCompatActivity {
 
 
     private EditText edt_firstName_register;
@@ -51,6 +51,14 @@ public class Register extends AppCompatActivity {
             return insets;
         });
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(register.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        };
 
 
 
@@ -71,7 +79,7 @@ public class Register extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Register.this, Login.class);
+                Intent intent = new Intent(register.this, login.class);
                 startActivity(intent);
                 finish();
             }
@@ -80,7 +88,7 @@ public class Register extends AppCompatActivity {
         btn_log_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Register.this, Login.class);
+                Intent intent = new Intent(register.this, login.class);
                 startActivity(intent);
                 finish();
             }
@@ -111,26 +119,26 @@ public class Register extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     userModel.setId(mAuth.getUid());
                                     userModel.save();
-                                    Toast.makeText(Register.this, "Register", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(register.this, "register", Toast.LENGTH_SHORT).show();
                                     openMainScreen();
                                 } else {
                                     String error = task.getException().getMessage();
-                                    Toast.makeText(Register.this, "" + error, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(register.this, "" + error, Toast.LENGTH_SHORT).show();
 
                                 }
                             }
                         });
                     } else {
-                        Toast.makeText(Register.this, "Password did not match!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(register.this, "Password did not match!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(Register.this, "Fill in all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(register.this, "Fill in all fields", Toast.LENGTH_SHORT).show();
                 }
             }
 
 
             private void openMainScreen() {
-                Intent intent = new Intent(Register.this, MainActivity.class);
+                Intent intent = new Intent(register.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
