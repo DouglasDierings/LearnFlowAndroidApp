@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class Login extends AppCompatActivity {
+public class login extends AppCompatActivity {
 
 
     //Buttons
@@ -33,6 +33,7 @@ public class Login extends AppCompatActivity {
     private EditText edt_password;
     private Button btn_sign_in_button;
     private Button btn_register;
+    private Button btn_forgot_password;
     private FirebaseAuth mAuth;
     private ProgressBar loginProgressBar;
 
@@ -41,11 +42,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
 
         mAuth = FirebaseAuth.getInstance();
         edt_email = findViewById(R.id.edt_email);
@@ -53,6 +50,7 @@ public class Login extends AppCompatActivity {
         btn_sign_in_button = findViewById(R.id.btn_sign_in_button);
         loginProgressBar = findViewById(R.id.loginProgressBar);
         btn_register = findViewById(R.id.btn_register);
+        btn_forgot_password = findViewById(R.id.btn_forgot_password);
 
         //Do the login
 
@@ -72,7 +70,7 @@ public class Login extends AppCompatActivity {
                                         openMainScreen();
                                     } else {
                                         String error = Objects.requireNonNull(task.getException()).getMessage();
-                                        Toast.makeText(Login.this, "" + error, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(login.this, "" + error, Toast.LENGTH_SHORT).show();
                                         loginProgressBar.setVisibility(View.INVISIBLE);
                                     }
                                 }
@@ -85,16 +83,33 @@ public class Login extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this, Register.class);
-                startActivity(intent);
-                finish();
+                openRegisterScreen();
+            }
+        });
+
+        btn_forgot_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRecoveryScreen();
             }
         });
 
     }
 
     private void openMainScreen() {
-        Intent intent = new Intent(Login.this, MainActivity.class);
+        Intent intent = new Intent(login.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void openRecoveryScreen() {
+        Intent intent = new Intent(login.this, forgotPassword.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void openRegisterScreen() {
+        Intent intent = new Intent(login.this, register.class);
         startActivity(intent);
         finish();
     }
