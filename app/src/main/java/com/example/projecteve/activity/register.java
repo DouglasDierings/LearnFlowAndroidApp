@@ -60,6 +60,10 @@ public class register extends AppCompatActivity {
             }
         };
 
+        //callback
+        getOnBackPressedDispatcher().addCallback(this, callback);
+
+
 
 
         mAuth = FirebaseAuth.getInstance();

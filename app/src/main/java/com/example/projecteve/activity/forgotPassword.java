@@ -13,12 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.projecteve.MainActivity;
 import com.example.projecteve.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,6 +41,22 @@ public class forgotPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_forgot_password);
+
+
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(forgotPassword.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        };
+
+        //callback
+        getOnBackPressedDispatcher().addCallback(this, callback);
+
+
 
         backArrow = findViewById(R.id.backArrow);
         btn_send_email = findViewById(R.id.btn_send_email);
