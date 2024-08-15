@@ -7,4 +7,17 @@
     </style>
 
     <style name="Theme.ProjectEve" parent="Base.Theme.ProjectEve" />
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+
+        <item name="colorOnPrimary">@color/white</item>
+
+
+    </style>
+
+
 </resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/menu_dashboard">
+
+    <fragment
+        android:id="@+id/menu_dashboard"
+        android:name="com.example.projecteve.fragments.dashbordFragment"
+        android:label="fragment_dashbord"
+        tools:layout="@layout/fragment_dashbord" />
+
+    <fragment
+        android:id="@+id/menu_employees"
+        android:name="com.example.projecteve.fragments.employessFragment"
+        android:label="fragment_employess"
+        tools:layout="@layout/fragment_employess" />
+
+    <fragment
+        android:id="@+id/menu_sites"
+        android:name="com.example.projecteve.fragments.sitesFragment"
+        android:label="fragment_sites"
+        tools:layout="@layout/fragment_sites" />
+
+    <fragment
+        android:id="@+id/menu_settings"
+        android:name="com.example.projecteve.fragments.settingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>
