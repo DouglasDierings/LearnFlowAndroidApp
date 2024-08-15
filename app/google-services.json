@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "56906845585",
+    "firebase_url": "https://projecteve-35f53-default-rtdb.firebaseio.com",
+    "project_id": "projecteve-35f53",
+    "storage_bucket": "projecteve-35f53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56906845585:android:8c00e1e4652635653ade30",
+        "android_client_info": {
+          "package_name": "com.example.projecteve"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKLpc_ZHkW6BcBmWzZP43yWtRBH_Gv-p8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
