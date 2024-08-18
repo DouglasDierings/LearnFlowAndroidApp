@@ -15,7 +15,7 @@ import com.example.projecteve.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link employessFragment#newInstance} factory method to
+
  * create an instance of this fragment.
  */
 public class employessFragment extends Fragment {
