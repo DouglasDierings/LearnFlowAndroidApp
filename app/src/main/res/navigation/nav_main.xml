@@ -15,7 +15,11 @@
         android:id="@+id/menu_employees"
         android:name="com.example.projecteve.fragments.employessFragment"
         android:label="fragment_employess"
-        tools:layout="@layout/fragment_employess" />
+        tools:layout="@layout/fragment_employess" >
+        <action
+            android:id="@+id/action_menu_employees_to_addEmployee"
+            app:destination="@id/addEmployee" />
+    </fragment>
 
     <fragment
         android:id="@+id/menu_sites"
@@ -28,5 +32,14 @@
         android:name="com.example.projecteve.fragments.settingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/addEmployee"
+        android:name="com.example.projecteve.fragments.addEmployee"
+        android:label="fragment_add_employee"
+        tools:layout="@layout/fragment_add_employee" >
+        <action
+            android:id="@+id/action_addEmployee_to_menu_employees"
+            app:destination="@id/menu_employees" />
+    </fragment>
 
 </navigation>
