@@ -21,7 +21,6 @@ import com.example.projecteve.R;
 public class employessFragment extends Fragment {
 
     private View view;
-    private Button btn_add_employee;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,7 +28,7 @@ public class employessFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_employess, container, false);
 
-        btn_add_employee = view.findViewById(R.id.btn_add_employee);
+        Button btn_add_employee = view.findViewById(R.id.btn_add_employee);
 
         // Set the click listener on the button
         btn_add_employee.setOnClickListener(new View.OnClickListener() {
