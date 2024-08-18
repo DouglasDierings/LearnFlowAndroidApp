@@ -31,15 +31,12 @@ public class employessFragment extends Fragment {
         Button btn_add_employee = view.findViewById(R.id.btn_add_employee);
 
         // Set the click listener on the button
-        btn_add_employee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Get the NavController from the view
-                NavController navController = Navigation.findNavController(view);
+        btn_add_employee.setOnClickListener(v -> {
+            // Get the NavController from the view
+            NavController navController = Navigation.findNavController(view);
 
-                // Navigate to the addEmployee fragment using its action ID
-                navController.navigate(R.id.action_menu_employees_to_addEmployee);
-            }
+            // Navigate to the addEmployee fragment using its action ID
+            navController.navigate(R.id.action_menu_employees_to_addEmployee);
         });
 
 
