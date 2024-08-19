@@ -25,7 +25,11 @@
         android:id="@+id/menu_sites"
         android:name="com.example.projecteve.fragments.sitesFragment"
         android:label="fragment_sites"
-        tools:layout="@layout/fragment_sites" />
+        tools:layout="@layout/fragment_sites" >
+        <action
+            android:id="@+id/action_menu_sites_to_sitesTranings"
+            app:destination="@id/sitesTranings" />
+    </fragment>
 
     <fragment
         android:id="@+id/menu_settings"
@@ -40,6 +44,27 @@
         <action
             android:id="@+id/action_addEmployee_to_menu_employees"
             app:destination="@id/menu_employees" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeesTraningCheck"
+        android:name="com.example.projecteve.fragments.employeesTrainingCheck"
+        android:label="fragment_employees_traning_check"
+        tools:layout="@layout/fragment_employees_traning_check" >
+        <action
+            android:id="@+id/action_employeesTraningCheck_to_sitesTranings"
+            app:destination="@id/sitesTranings" />
+    </fragment>
+    <fragment
+        android:id="@+id/sitesTranings"
+        android:name="com.example.projecteve.fragments.sitesTrainingsFragment"
+        android:label="fragment_sites_tranings"
+        tools:layout="@layout/fragment_sites_tranings" >
+        <action
+            android:id="@+id/action_sitesTranings_to_menu_sites"
+            app:destination="@id/menu_sites" />
+        <action
+            android:id="@+id/action_sitesTranings_to_employeesTraningCheck"
+            app:destination="@id/employeesTraningCheck" />
     </fragment>
 
 </navigation>

@@ -19,7 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.projecteve.MainActivity;
 import com.example.projecteve.R;
-import com.example.projecteve.models.UserModel;
+import com.example.projecteve.models.userModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -105,7 +105,7 @@ public class register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                UserModel userModel = new UserModel();
+                userModel userModel = new userModel();
 
                 userModel.setFirstName(edt_firstName_register.getText().toString());
                 userModel.setLastName(edt_lastName_register.getText().toString());
