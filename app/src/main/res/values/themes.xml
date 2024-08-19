@@ -2,8 +2,9 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ProjectEve" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="Theme.ProjectEve" parent="Base.Theme.ProjectEve" />
@@ -13,11 +14,6 @@
     </style>
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-
         <item name="colorOnPrimary">@color/white</item>
-
-
     </style>
-
-
 </resources>

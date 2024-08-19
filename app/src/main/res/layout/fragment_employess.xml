@@ -14,15 +14,17 @@
 
         <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:background="@drawable/rounded_toolbar_background"
-            android:elevation="4dp"
-            android:padding="8dp">
+            android:elevation="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Employees"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
@@ -34,25 +36,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_search_bar"
-            android:padding="8dp"
-            android:layout_marginTop="16dp">
+            android:orientation="horizontal"
+            android:padding="8dp">
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:hint="Search an Employee"
-                android:padding="8dp"
-                android:background="@android:color/transparent" />
+                android:padding="8dp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@android:drawable/ic_menu_search"
-                android:contentDescription="Search Icon" />
+                android:contentDescription="Search Icon"
+                android:src="@android:drawable/ic_menu_search" />
 
         </LinearLayout>
 
@@ -60,9 +62,9 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,41 +75,41 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="8dp"
                     android:layout_marginBottom="8dp"
                     android:background="@android:color/white"
-                    android:elevation="2dp">
+                    android:elevation="2dp"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical">
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Employee Name"
-                            android:textStyle="bold"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Site Location"
-                            android:textSize="12sp"
-                            android:textColor="@android:color/darker_gray" />
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/baseline_delete_24"
-                        android:contentDescription="Delete Icon"
                         android:layout_gravity="center_vertical"
+                        android:contentDescription="Delete Icon"
+                        android:src="@drawable/baseline_delete_24"
                         app:tint="#FF0000" />
 
                 </LinearLayout>
@@ -121,10 +123,9 @@
             android:id="@+id/btn_add_employee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add a New Employee"
             android:backgroundTint="@color/blue"
-            android:textColor="@android:color/white"
-            android:textAllCaps="false" />
+            android:text="Add a New Employee"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

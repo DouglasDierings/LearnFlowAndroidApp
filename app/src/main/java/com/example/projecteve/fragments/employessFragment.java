@@ -1,11 +1,13 @@
 package com.example.projecteve.fragments;
 
 import android.os.Bundle;
-
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +15,6 @@ import android.widget.Button;
 
 import com.example.projecteve.R;
 
-/**
- * A simple {@link Fragment} subclass.
-
- * create an instance of this fragment.
- */
 public class employessFragment extends Fragment {
 
     private View view;
@@ -29,6 +26,10 @@ public class employessFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_employess, container, false);
 
         Button btn_add_employee = view.findViewById(R.id.btn_add_employee);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+
+
+        // Navigate to addemployee fragment
 
         // Set the click listener on the button
         btn_add_employee.setOnClickListener(v -> {
@@ -37,6 +38,16 @@ public class employessFragment extends Fragment {
 
             // Navigate to the addEmployee fragment using its action ID
             navController.navigate(R.id.action_menu_employees_to_addEmployee);
+        });
+
+
+
+
+        // Handle the back arrow click in the toolbar
+        toolbar.setNavigationOnClickListener(v -> {
+            // Instead of using the deprecated onBackPressed(), we'll directly trigger the back navigation
+            NavController navController = Navigation.findNavController(view);
+            navController.popBackStack();  // Navigates back when the back arrow is clicked
         });
 
 

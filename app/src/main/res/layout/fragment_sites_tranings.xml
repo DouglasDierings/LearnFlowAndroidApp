@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    tools:context=".fragments.sitesTranings">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_toolbar_background"
+        android:elevation="8dp"
+        android:layout_marginTop="20dp"
+        app:navigationIcon="@drawable/ic_back_arrow"> <!-- Back Arrow Icon -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Site 1"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btn_site_folder_sign_off"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Site Folder Sign Off"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/blue"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            android:padding="16dp" />
+
+        <Button
+            android:id="@+id/btn_toolbox_talks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Toolbox Talks"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/blue"
+            android:layout_marginVertical="10dp"
+            android:textStyle="bold"
+            android:padding="16dp" />
+
+        <Button
+            android:id="@+id/btn_an_post_garda_vetting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="An Post Garda Vetting"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/blue"
+            android:layout_marginVertical="10dp"
+            android:textStyle="bold"
+            android:padding="16dp" />
+
+        <Button
+            android:id="@+id/btn_mcr_employee_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MCR Employee Form"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/blue"
+            android:layout_marginVertical="10dp"
+            android:textStyle="bold"
+            android:padding="16dp" />
+
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>
