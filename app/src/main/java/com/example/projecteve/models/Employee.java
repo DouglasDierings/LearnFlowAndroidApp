@@ -3,7 +3,7 @@ package com.example.projecteve.models;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class employee {
+public class Employee {
 
 
     private String firstName;
@@ -15,7 +15,7 @@ public class employee {
     private Boolean site2;
     private Boolean site3;
 
-    public employee(String firstName, String lastName, String employeeNumber, Boolean site1, Boolean site2, Boolean site3, Boolean courseCompleted) {
+    public Employee(String firstName, String lastName, String employeeNumber, Boolean site1, Boolean site2, Boolean site3, Boolean courseCompleted) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.employeeNumber = employeeNumber;
@@ -33,7 +33,7 @@ public class employee {
         this.courseCompleted = courseCompleted;
     }
 
-    public employee() {
+    public Employee() {
     }
 
 

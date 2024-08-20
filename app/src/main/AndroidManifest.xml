@@ -13,7 +13,7 @@
         android:theme="@style/Theme.ProjectEve"
         tools:targetApi="31" >
         <activity
-            android:name=".fragments.addEmployee"
+            android:name=".fragments.AddEmployeeFragment"
             android:exported="false" />
         <activity
             android:name=".activity.forgotPassword"

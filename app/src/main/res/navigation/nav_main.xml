@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/menu_employees"
-        android:name="com.example.projecteve.fragments.employessFragment"
+        android:name="com.example.projecteve.fragments.EmployesFragment"
         android:label="fragment_employess"
         tools:layout="@layout/fragment_employess" >
         <action
@@ -38,7 +38,7 @@
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/addEmployee"
-        android:name="com.example.projecteve.fragments.addEmployee"
+        android:name="com.example.projecteve.fragments.AddEmployeeFragment"
         android:label="fragment_add_employee"
         tools:layout="@layout/fragment_add_employee" >
         <action
