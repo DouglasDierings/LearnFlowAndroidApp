@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.projecteve.R;
 import com.example.projecteve.models.Employee;
+import com.example.projecteve.utils.CheckAndSaveEmployee;
 
 
 public class AddEmployeeFragment extends Fragment {
@@ -32,11 +33,9 @@ public class AddEmployeeFragment extends Fragment {
     CheckBox cb_site3;
     Button btn_register;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_add_employee, container, false);
 
         edt_name = view.findViewById(R.id.edt_name);
@@ -47,15 +46,12 @@ public class AddEmployeeFragment extends Fragment {
         cb_site3 = view.findViewById(R.id.cb_site3);
         btn_register = view.findViewById(R.id.btn_register);
 
-
-
         Toolbar toolbar = view.findViewById(R.id.toolbar);
 
         // Handle the back arrow click in the toolbar
         toolbar.setNavigationOnClickListener(v -> {
-            // Instead of using the deprecated onBackPressed(), we'll directly trigger the back navigation
             NavController navController = Navigation.findNavController(view);
-            navController.popBackStack();  // Navigates back when the back arrow is clicked
+            navController.popBackStack();
         });
 
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +59,6 @@ public class AddEmployeeFragment extends Fragment {
             public void onClick(View view) {
 
                 Employee employee = new Employee();
-
                 employee.setFirstName(edt_name.getText().toString());
                 employee.setLastName(edt_surname.getText().toString());
                 employee.setEmployeeNumber(edt_employee_number.getText().toString());
@@ -72,22 +67,24 @@ public class AddEmployeeFragment extends Fragment {
                 employee.setSite3(cb_site3.isChecked());
 
                 if (!TextUtils.isEmpty(employee.getFirstName()) && !TextUtils.isEmpty(employee.getLastName()) && !TextUtils.isEmpty(employee.getEmployeeNumber())) {
-                    employee.saveEmployee();
+                    CheckAndSaveEmployee.checkAndSaveEmployee(AddEmployeeFragment.this, employee, new CheckAndSaveEmployee.EmployeeCallback() {
+                        @Override
+                        public void onSuccess(String message) {
+                            Toast.makeText(AddEmployeeFragment.this.getActivity(), message, Toast.LENGTH_SHORT).show();
+                            NavController navController = Navigation.findNavController(view);
+                            navController.popBackStack();
+                        }
 
-                    Toast.makeText(AddEmployeeFragment.this.getActivity(), employee.getFirstName() + " Was added", Toast.LENGTH_SHORT).show();
-                    NavController navController = Navigation.findNavController(view);
-                    navController.popBackStack();
-
-                }else {
-
-                    Toast.makeText(AddEmployeeFragment.this.getActivity(), "Insert complete all fields", Toast.LENGTH_SHORT).show();
-
+                        @Override
+                        public void onFailure(String error) {
+                            Toast.makeText(AddEmployeeFragment.this.getActivity(), error, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(AddEmployeeFragment.this.getActivity(), "Please complete all fields.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
-
 
         return view;
     }

@@ -68,10 +68,10 @@
             android:padding="16dp" />
 
         <Button
-            android:id="@+id/btn_an_post_garda_vetting"
+            android:id="@+id/btn_mcr_employee_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="An Post Garda Vetting"
+            android:text="MCR Employee Form"
             android:textColor="@android:color/white"
             android:backgroundTint="@color/blue"
             android:layout_marginVertical="10dp"
@@ -79,10 +79,12 @@
             android:padding="16dp" />
 
         <Button
-            android:id="@+id/btn_mcr_employee_form"
+
+            android:id="@+id/btn_an_post_garda_vetting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MCR Employee Form"
+            android:text="An Post Garda Vetting"
+            android:visibility="gone"
             android:textColor="@android:color/white"
             android:backgroundTint="@color/blue"
             android:layout_marginVertical="10dp"
