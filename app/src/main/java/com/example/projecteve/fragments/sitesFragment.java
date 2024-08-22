@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 
 import com.example.projecteve.R;
 import com.example.projecteve.adapters.SitesAdapter;
+import com.example.projecteve.models.Course;
 import com.example.projecteve.models.Employee;
 import com.example.projecteve.models.site;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +38,12 @@ public class sitesFragment extends Fragment {
 
         // ListView setup
         ListView listView = view.findViewById(R.id.lv_sites);
+
+        //Courses
+        Course site_folder_sign_off = new Course("site_folder_sign_off",false);
+        Course toolbox_talks = new Course("toolbox_talks",false);
+        Course mcr_employee_form = new Course("mcr_employee_form",false);
+        Course an_post_garda_vetting = new Course("an_post_garda_vetting",false);
 
         // Firebase reference to fetch employees
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("employees");

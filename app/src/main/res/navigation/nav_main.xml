@@ -49,7 +49,7 @@
         android:id="@+id/employeesTraningCheck"
         android:name="com.example.projecteve.fragments.employeesTrainingCheck"
         android:label="fragment_employees_traning_check"
-        tools:layout="@layout/fragment_employees_traning_check" >
+        tools:layout="@layout/fragment_employees_training_check" >
         <action
             android:id="@+id/action_employeesTraningCheck_to_sitesTranings"
             app:destination="@id/sitesTranings" />

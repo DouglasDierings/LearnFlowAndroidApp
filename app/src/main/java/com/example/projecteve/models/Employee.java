@@ -3,6 +3,8 @@ package com.example.projecteve.models;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.List;
+
 public class Employee {
 
 
@@ -14,6 +16,8 @@ public class Employee {
     private Boolean site1;
     private Boolean site2;
     private Boolean site3;
+
+    private List<site> coursesList ;
 
     public Employee(String firstName, String lastName, String employeeNumber, Boolean site1, Boolean site2, Boolean site3, Boolean courseCompleted) {
         this.firstName = firstName;
@@ -66,6 +70,7 @@ public class Employee {
     }
 
     public void setSite1(Boolean site1) {
+
         this.site1 = site1;
     }
 
@@ -74,6 +79,7 @@ public class Employee {
     }
 
     public void setSite2(Boolean site2) {
+
         this.site2 = site2;
     }
 
@@ -86,12 +92,16 @@ public class Employee {
     }
 
 
-
     public void saveEmployee() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("employees").child(getEmployeeNumber()).setValue(this);
     }
 
+    public void updateCourseEmployee(List<site> coursesList){
+
+
+
+    }
 
 
 }

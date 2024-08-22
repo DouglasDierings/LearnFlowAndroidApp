@@ -19,8 +19,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
         android:background="@drawable/rounded_toolbar_background"
+        android:elevation="8dp"
+        android:layout_marginTop="20dp"
         app:navigationIcon="@drawable/ic_back_arrow"> <!-- Back Arrow Icon -->
 
         <TextView
