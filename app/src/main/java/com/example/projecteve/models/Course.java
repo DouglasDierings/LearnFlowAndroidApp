@@ -11,7 +11,7 @@ public class Course {
         this.isCompleted = isCompleted;
     }
 
-
+    // Getters e Setters
 
     public String getCourseName() {
         return courseName;

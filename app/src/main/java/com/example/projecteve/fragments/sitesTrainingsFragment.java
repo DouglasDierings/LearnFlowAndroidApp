@@ -35,12 +35,12 @@ public class sitesTrainingsFragment extends Fragment {
         btn_toolbox_talks = view.findViewById(R.id.btn_toolbox_talks);
         btn_site_folder_sign_off = view.findViewById(R.id.btn_site_folder_sign_off);
 
-        // Get the site name from the Bundle
+        // Get the Site name from the Bundle
         if (getArguments() != null) {
             String siteName = getArguments().getString("siteName");
             txtSiteName.setText(siteName);
 
-            // Show or hide buttons based on site name
+            // Show or hide buttons based on Site name
             if ("Site 1".equals(siteName)){
                 btn_an_post_garda_vetting.setVisibility(View.VISIBLE);
                 // Hide other buttons or set visibility based on your logic

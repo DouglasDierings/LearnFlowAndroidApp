@@ -8,16 +8,16 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.projecteve.R;
-import com.example.projecteve.models.site;
+import com.example.projecteve.models.Site;
 
 import java.util.List;
 
 public class SitesAdapter extends BaseAdapter {
 
     private Context context;
-    private List<site> siteList;
+    private List<Site> siteList;
 
-    public SitesAdapter(Context context, List<site> siteList) {
+    public SitesAdapter(Context context, List<Site> siteList) {
         this.context = context;
         this.siteList = siteList;
     }
@@ -47,7 +47,7 @@ public class SitesAdapter extends BaseAdapter {
         TextView siteLocation = convertView.findViewById(R.id.tv_site_location);
         TextView numEmployees = convertView.findViewById(R.id.tv_num_employees);
 
-        site site = siteList.get(position);
+        Site site = siteList.get(position);
         siteName.setText(site.getName());
         siteLocation.setText(site.getLocation());
         numEmployees.setText(site.getNumEmployees() + " Employees");

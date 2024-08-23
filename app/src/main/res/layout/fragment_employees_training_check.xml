@@ -14,44 +14,55 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-    <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_toolbar_background"
-        android:elevation="8dp"
-        android:layout_marginTop="20dp"
-        app:navigationIcon="@drawable/ic_back_arrow"> <!-- Back Arrow Icon -->
+        <!-- Toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_toolbar_background"
+            android:elevation="8dp"
+            android:layout_marginTop="20dp"
+            app:navigationIcon="@drawable/ic_back_arrow"> <!-- Back Arrow Icon -->
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Site Folder Sign Off"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <!-- Employee List -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Site Folder Sign Off"
-            android:textColor="@android:color/white"
+            android:text="Employees list"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:layout_gravity="center" />
+
+        <ListView
+            android:id="@+id/employee_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"
+            android:padding="16dp" />
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/btn_save_training"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Training"
             android:layout_gravity="center"
-            android:textStyle="bold" />
+            android:layout_marginTop="20dp"/>
 
-    </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
 
-    <!-- Employee List -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Employees list"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:layout_gravity="center" />
-
-    <ListView
-        android:id="@+id/employee_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"/>
-</LinearLayout>
 </LinearLayout>

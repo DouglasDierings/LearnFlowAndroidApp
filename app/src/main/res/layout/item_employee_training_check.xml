@@ -32,7 +32,7 @@
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/checkbox_employee"
+        android:id="@+id/cb_course_completed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical" />

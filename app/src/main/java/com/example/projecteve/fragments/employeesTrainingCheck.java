@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.example.projecteve.R;
 import com.example.projecteve.adapters.EmployeeAdapterTrainingCheck;
 import com.example.projecteve.models.Employee;
+import com.example.projecteve.models.Site;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,7 +43,7 @@ public class employeesTrainingCheck extends Fragment {
         employeeAdapter = new EmployeeAdapterTrainingCheck(getContext(), employeeList);
         employeeListView.setAdapter(employeeAdapter);
 
-        // Fetch the site name from arguments and use it to fetch employees
+        // Fetch the Site name from arguments and use it to fetch employees
         if (getArguments() != null) {
             String siteName = getArguments().getString("siteName");
             fetchEmployeesForSite(siteName);
@@ -67,14 +68,13 @@ public class employeesTrainingCheck extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Employee employee = snapshot.getValue(Employee.class);
 
-                    if (employee != null) {
-                        // Filter employees based on the selected site
-                        if ("Site 1".equals(siteName) && employee.getSite1()) {
-                            employeeList.add(employee);
-                        } else if ("Site 2".equals(siteName) && employee.getSite2()) {
-                            employeeList.add(employee);
-                        } else if ("Site 3".equals(siteName) && employee.getSite3()) {
-                            employeeList.add(employee);
+                    if (employee != null && employee.getSites() != null) {
+                        // Filtra os empregados com base no site selecionado
+                        for (Site site : employee.getSites()) {
+                            if (siteName.equals(site.getName())) {
+                                employeeList.add(employee);
+                                break; // Sai do loop quando encontrar um site correspondente
+                            }
                         }
                     }
                 }

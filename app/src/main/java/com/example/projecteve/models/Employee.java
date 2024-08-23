@@ -7,39 +7,25 @@ import java.util.List;
 
 public class Employee {
 
-
     private String firstName;
     private String lastName;
     private String employeeNumber;
-    private Boolean courseCompleted; // Add this line
+    private Boolean courseCompleted;
 
-    private Boolean site1;
-    private Boolean site2;
-    private Boolean site3;
+    // Lista de sites associados a este funcionário
+    private List<Site> sites;
 
-    private List<site> coursesList ;
-
-    public Employee(String firstName, String lastName, String employeeNumber, Boolean site1, Boolean site2, Boolean site3, Boolean courseCompleted) {
+    public Employee(String firstName, String lastName, String employeeNumber, List<Site> sites) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.employeeNumber = employeeNumber;
-        this.site1 = site1;
-        this.site2 = site2;
-        this.site3 = site3;
-        this.courseCompleted = courseCompleted;
+
+        this.sites = sites;
     }
 
-    public Boolean getCourseCompleted() {
-        return courseCompleted;
-    }
+    public Employee() {}
 
-    public void setCourseCompleted(Boolean courseCompleted) {
-        this.courseCompleted = courseCompleted;
-    }
-
-    public Employee() {
-    }
-
+    // Getters e Setters
 
     public String getFirstName() {
         return firstName;
@@ -65,43 +51,25 @@ public class Employee {
         this.employeeNumber = employeeNumber;
     }
 
-    public Boolean getSite1() {
-        return site1;
+    public Boolean getCourseCompleted() {
+        return courseCompleted;
     }
 
-    public void setSite1(Boolean site1) {
-
-        this.site1 = site1;
+    public void setCourseCompleted(Boolean courseCompleted) {
+        this.courseCompleted = courseCompleted;
     }
 
-    public Boolean getSite2() {
-        return site2;
+    public List<Site> getSites() {
+        return sites;
     }
 
-    public void setSite2(Boolean site2) {
-
-        this.site2 = site2;
+    public void setSites(List<Site> sites) {
+        this.sites = sites;
     }
 
-    public Boolean getSite3() {
-        return site3;
-    }
-
-    public void setSite3(Boolean site3) {
-        this.site3 = site3;
-    }
-
-
+    // Método para salvar no Firebase
     public void saveEmployee() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("employees").child(getEmployeeNumber()).setValue(this);
     }
-
-    public void updateCourseEmployee(List<site> coursesList){
-
-
-
-    }
-
-
 }

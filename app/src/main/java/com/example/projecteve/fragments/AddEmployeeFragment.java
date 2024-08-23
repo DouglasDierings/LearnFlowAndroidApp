@@ -1,12 +1,10 @@
 package com.example.projecteve.fragments;
 
 import android.os.Bundle;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +13,17 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.projecteve.R;
+import com.example.projecteve.models.Course;
 import com.example.projecteve.models.Employee;
+import com.example.projecteve.models.Site;
 import com.example.projecteve.utils.CheckAndSaveEmployee;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddEmployeeFragment extends Fragment {
 
     View view;
-
     EditText edt_name;
     EditText edt_surname;
     EditText edt_employee_number;
@@ -57,32 +56,49 @@ public class AddEmployeeFragment extends Fragment {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String firstName = edt_name.getText().toString();
+                String lastName = edt_surname.getText().toString();
+                String employeeNumber = edt_employee_number.getText().toString();
 
-                Employee employee = new Employee();
-                employee.setFirstName(edt_name.getText().toString());
-                employee.setLastName(edt_surname.getText().toString());
-                employee.setEmployeeNumber(edt_employee_number.getText().toString());
-                employee.setSite1(cb_site1.isChecked());
-                employee.setSite2(cb_site2.isChecked());
-                employee.setSite3(cb_site3.isChecked());
-
-                if (!TextUtils.isEmpty(employee.getFirstName()) && !TextUtils.isEmpty(employee.getLastName()) && !TextUtils.isEmpty(employee.getEmployeeNumber())) {
-                    CheckAndSaveEmployee.checkAndSaveEmployee(AddEmployeeFragment.this, employee, new CheckAndSaveEmployee.EmployeeCallback() {
-                        @Override
-                        public void onSuccess(String message) {
-                            Toast.makeText(AddEmployeeFragment.this.getActivity(), message, Toast.LENGTH_SHORT).show();
-                            NavController navController = Navigation.findNavController(view);
-                            navController.popBackStack();
-                        }
-
-                        @Override
-                        public void onFailure(String error) {
-                            Toast.makeText(AddEmployeeFragment.this.getActivity(), error, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
+                if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(employeeNumber)) {
                     Toast.makeText(AddEmployeeFragment.this.getActivity(), "Please complete all fields.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                // Lista de cursos para todos os sites
+                List<Course> coursesList = new ArrayList<>();
+                coursesList.add(new Course("site_folder_sign_off", false));
+                coursesList.add(new Course("toolbox_talks", false));
+                coursesList.add(new Course("employee_form", false));
+                coursesList.add(new Course("an_post_garda_vetting", false));
+
+                // Lista de sites do empregado
+                List<Site> sites = new ArrayList<>();
+                if (cb_site1.isChecked()) {
+                    sites.add(new Site("Site 1", "Docklands", new ArrayList<>(coursesList)));
+                }
+                if (cb_site2.isChecked()) {
+                    sites.add(new Site("Site 2", "Docklands", new ArrayList<>(coursesList)));
+                }
+                if (cb_site3.isChecked()) {
+                    sites.add(new Site("Site 3", "Docklands", new ArrayList<>(coursesList)));
+                }
+
+                Employee employee = new Employee(firstName, lastName, employeeNumber, sites);
+
+                CheckAndSaveEmployee.checkAndSaveEmployee(AddEmployeeFragment.this, employee, new CheckAndSaveEmployee.EmployeeCallback() {
+                    @Override
+                    public void onSuccess(String message) {
+                        Toast.makeText(AddEmployeeFragment.this.getActivity(), message, Toast.LENGTH_SHORT).show();
+                        NavController navController = Navigation.findNavController(view);
+                        navController.popBackStack();
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+                        Toast.makeText(AddEmployeeFragment.this.getActivity(), error, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 

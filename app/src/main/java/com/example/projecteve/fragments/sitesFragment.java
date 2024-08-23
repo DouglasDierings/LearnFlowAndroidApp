@@ -1,4 +1,5 @@
 package com.example.projecteve.fragments;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +17,7 @@ import com.example.projecteve.R;
 import com.example.projecteve.adapters.SitesAdapter;
 import com.example.projecteve.models.Course;
 import com.example.projecteve.models.Employee;
-import com.example.projecteve.models.site;
+import com.example.projecteve.models.Site;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,11 +25,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class sitesFragment extends Fragment {
 
     private View view;
+    List<Course> emptyCoursesList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,45 +43,35 @@ public class sitesFragment extends Fragment {
         // ListView setup
         ListView listView = view.findViewById(R.id.lv_sites);
 
-        //Courses
-        Course site_folder_sign_off = new Course("site_folder_sign_off",false);
-        Course toolbox_talks = new Course("toolbox_talks",false);
-        Course mcr_employee_form = new Course("mcr_employee_form",false);
-        Course an_post_garda_vetting = new Course("an_post_garda_vetting",false);
-
         // Firebase reference to fetch employees
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("employees");
 
-        // Listener to retrieve employees and count site participation
+        // Listener to retrieve employees and count Site participation
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int site1Count = 0;
-                int site2Count = 0;
-                int site3Count = 0;
+                Map<String, Integer> siteCounts = new HashMap<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Employee employee = snapshot.getValue(Employee.class);
                     if (employee != null) {
-                        if (employee.getSite1()) {
-                            site1Count++;
-                        }
-                        if (employee.getSite2()) {
-                            site2Count++;
-                        }
-                        if (employee.getSite3()) {
-                            site3Count++;
+                        List<Site> sites = employee.getSites(); // Obtém a lista de sites do funcionário
+                        if (sites != null) {
+                            for (Site site : sites) {
+                                String siteName = site.getName();
+                                siteCounts.put(siteName, siteCounts.getOrDefault(siteName, 0) + 1);
+                            }
                         }
                     }
                 }
 
-                // Prepare the list with the site data and employee counts
-                List<site> sites = new ArrayList<>();
-                sites.add(new site("Site 1", "Docklands", site1Count));
-                sites.add(new site("Site 2", "Docklands", site2Count));
-                sites.add(new site("Site 3", "Docklands", site3Count));
+                // Prepare the list with the Site data and employee counts
+                List<Site> sitesList = new ArrayList<>();
+                for (Map.Entry<String, Integer> entry : siteCounts.entrySet()) {
+                    sitesList.add(new Site(entry.getKey(), "Docklands", entry.getValue(), emptyCoursesList));
+                }
 
-                SitesAdapter adapter = new SitesAdapter(getContext(), sites);
+                SitesAdapter adapter = new SitesAdapter(getContext(), sitesList);
                 listView.setAdapter(adapter);
             }
 
@@ -91,10 +85,10 @@ public class sitesFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Get the clicked site
-                site selectedSite = (site) parent.getItemAtPosition(position);
+                // Get the clicked Site
+                Site selectedSite = (Site) parent.getItemAtPosition(position);
 
-                // Navigate to the trainings fragment and pass the site name
+                // Navigate to the trainings fragment and pass the Site name
                 NavController navController = Navigation.findNavController(view);
                 Bundle bundle = new Bundle();
                 bundle.putString("siteName", selectedSite.getName());
