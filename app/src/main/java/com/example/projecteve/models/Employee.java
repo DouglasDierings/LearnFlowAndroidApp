@@ -10,7 +10,6 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String employeeNumber;
-    private Boolean courseCompleted;
 
     // Lista de sites associados a este funcionário
     private List<Site> sites;
@@ -51,13 +50,6 @@ public class Employee {
         this.employeeNumber = employeeNumber;
     }
 
-    public Boolean getCourseCompleted() {
-        return courseCompleted;
-    }
-
-    public void setCourseCompleted(Boolean courseCompleted) {
-        this.courseCompleted = courseCompleted;
-    }
 
     public List<Site> getSites() {
         return sites;

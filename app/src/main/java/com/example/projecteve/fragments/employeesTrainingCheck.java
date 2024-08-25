@@ -8,7 +8,10 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.projecteve.R;
 import com.example.projecteve.adapters.EmployeeAdapterTrainingCheck;
@@ -29,62 +32,118 @@ public class employeesTrainingCheck extends Fragment {
     private ListView employeeListView;
     private List<Employee> employeeList;
     private EmployeeAdapterTrainingCheck employeeAdapter;
+    private int siteIndex;
+    private int courseIndex;
+    private String siteName;
+    private String courseName;
+    private TextView tvCourseName;
+    private Toolbar toolbar;
+    private Button saveButton;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_employees_training_check, container, false);
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
 
-        // Initialize the employee list and adapter
+        // Initialize UI components
+        toolbar = view.findViewById(R.id.toolbar);
+        tvCourseName = view.findViewById(R.id.tv_course_name);
         employeeListView = view.findViewById(R.id.employee_list_view);
+        saveButton = view.findViewById(R.id.btn_save_training);
+
+        // Initialize the employee list
         employeeList = new ArrayList<>();
-        employeeAdapter = new EmployeeAdapterTrainingCheck(getContext(), employeeList);
-        employeeListView.setAdapter(employeeAdapter);
 
-        // Fetch the Site name from arguments and use it to fetch employees
-        if (getArguments() != null) {
-            String siteName = getArguments().getString("siteName");
-            fetchEmployeesForSite(siteName);
-        }
-
-        // Handle the back arrow click in the toolbar
-        toolbar.setNavigationOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(view);
-            navController.popBackStack();  // Navigates back when the back arrow is clicked
-        });
-
+        // Handle fragment arguments and initialization in onViewCreated
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Retrieve arguments passed from the previous fragment
+        if (getArguments() != null) {
+            siteName = getArguments().getString("siteName");
+            courseName = getArguments().getString("courseName");
+            siteIndex = getArguments().getInt("siteIndex", -1);
+            courseIndex = getArguments().getInt("courseIndex", -1);
+
+
+            if (siteName == null || courseName == null || siteIndex == -1 || courseIndex == -1) {
+                Toast.makeText(getContext(), "Invalid data passed", Toast.LENGTH_SHORT).show();
+                NavController navController = Navigation.findNavController(view);
+                navController.popBackStack();
+                return;
+            }
+
+            tvCourseName.setText(courseName);
+            fetchEmployeesForSite(siteName);
+
+            toolbar.setNavigationOnClickListener(v -> {
+                NavController navController = Navigation.findNavController(view);
+                navController.popBackStack();
+            });
+
+            saveButton.setOnClickListener(v -> saveTrainingStatus());
+        } else {
+            Toast.makeText(getContext(), "No data passed", Toast.LENGTH_SHORT).show();
+            NavController navController = Navigation.findNavController(view);
+            navController.popBackStack();
+        }
     }
 
     private void fetchEmployeesForSite(String siteName) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("employees");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                employeeList.clear();
+                if (employeeList != null) {
+                    employeeList.clear();
+                }
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Employee employee = snapshot.getValue(Employee.class);
 
-                    if (employee != null && employee.getSites() != null) {
-                        // Filtra os empregados com base no site selecionado
-                        for (Site site : employee.getSites()) {
-                            if (siteName.equals(site.getName())) {
-                                employeeList.add(employee);
-                                break; // Sai do loop quando encontrar um site correspondente
-                            }
+                    if (employee != null && employee.getSites() != null && siteIndex < employee.getSites().size()) {
+                        Site site = employee.getSites().get(siteIndex);
+                        if (site.getName().equals(siteName)) {
+                            employeeList.add(employee);
                         }
                     }
                 }
-                employeeAdapter.notifyDataSetChanged();
+
+                employeeAdapter = new EmployeeAdapterTrainingCheck(getContext(), employeeList, siteIndex, courseIndex);
+                employeeListView.setAdapter(employeeAdapter);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Handle possible errors
+                Toast.makeText(getContext(), "Failed to fetch employees", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void saveTrainingStatus() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("employees");
+
+        for (Employee employee : employeeList) {
+            if (employee.getSites() != null && siteIndex < employee.getSites().size()) {
+                Site site = employee.getSites().get(siteIndex);
+
+                if (site.getCoursesList() != null && courseIndex < site.getCoursesList().size()) {
+                    Boolean isCompleted = site.getCoursesList().get(courseIndex).getIsCompleted();
+
+                    databaseReference.child(employee.getEmployeeNumber())
+                            .child("sites")
+                            .child(String.valueOf(siteIndex))
+                            .child("coursesList")
+                            .child(String.valueOf(courseIndex))
+                            .child("isCompleted")
+                            .setValue(isCompleted);
+                }
+            }
+        }
+
+        Toast.makeText(getContext(), "Training status saved successfully", Toast.LENGTH_SHORT).show();
     }
 }

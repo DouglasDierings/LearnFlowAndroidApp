@@ -67,8 +67,10 @@ public class sitesFragment extends Fragment {
 
                 // Prepare the list with the Site data and employee counts
                 List<Site> sitesList = new ArrayList<>();
+                int siteCode = 1;
                 for (Map.Entry<String, Integer> entry : siteCounts.entrySet()) {
-                    sitesList.add(new Site(entry.getKey(), "Docklands", entry.getValue(), emptyCoursesList));
+                    sitesList.add(new Site(siteCode,entry.getKey(), "Docklands", entry.getValue(), emptyCoursesList));
+                    siteCode++;
                 }
 
                 SitesAdapter adapter = new SitesAdapter(getContext(), sitesList);

@@ -3,6 +3,7 @@ package com.example.projecteve.models;
 import java.util.List;
 
 public class Site {
+    private int siteCode;
     private String name;
     private String location;
     private int numEmployees;
@@ -10,7 +11,8 @@ public class Site {
     // Lista de cursos associados a este site
     private List<Course> coursesList;
 
-    public Site() {}
+    public Site() {
+    }
 
     public Site(String name, String location, List<Course> coursesList) {
         this.name = name;
@@ -18,14 +20,24 @@ public class Site {
         this.coursesList = coursesList;
     }
 
-    public Site(String name, String location, int numEmployees, List<Course> coursesList) {
+    public Site(int siteCode, String name, String location, int numEmployees, List<Course> coursesList) {
         this.name = name;
         this.location = location;
         this.numEmployees = numEmployees;
         this.coursesList = coursesList;
+        this.siteCode = siteCode;
     }
 
     // Getters e Setters
+
+
+    public int getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(int siteCode) {
+        this.siteCode = siteCode;
+    }
 
     public String getName() {
         return name;
