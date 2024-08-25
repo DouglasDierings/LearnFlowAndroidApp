@@ -29,6 +29,7 @@ public class sitesTrainingsFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private String currentUserId;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +46,9 @@ public class sitesTrainingsFragment extends Fragment {
         // Initialize Firebase Auth and get the current user
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+
+
 
         if (currentUser != null) {
             currentUserId = currentUser.getUid();
@@ -79,6 +83,10 @@ public class sitesTrainingsFragment extends Fragment {
             }
         }
 
+        if(txtSiteName.getText().toString().equals("Site 1")){
+            btn_an_post_garda_vetting.setVisibility(View.VISIBLE);
+        }
+
         // Set up click listeners for buttons
         btn_an_post_garda_vetting.setOnClickListener(v -> navigateToEmployeesTrainingCheck("an_post_garda_vetting"));
         btn_mcr_employee_form.setOnClickListener(v -> navigateToEmployeesTrainingCheck("employee_form"));
@@ -98,6 +106,8 @@ public class sitesTrainingsFragment extends Fragment {
         // Determine the courseIndex based on the courseName
         int courseIndex = getCourseIndex(courseName);
 
+
+
         Bundle bundle = new Bundle();
         bundle.putString("siteName", txtSiteName.getText().toString());
         bundle.putString("courseName", courseName);
@@ -116,13 +126,14 @@ public class sitesTrainingsFragment extends Fragment {
 
     private int getCourseIndex(String courseName) {
         switch (courseName) {
-            case "an_post_garda_vetting":
-                return 0;
-            case "employee_form":
-                return 1;
-            case "toolbox_talks":
-                return 2;
+
             case "site_folder_sign_off":
+                return 0;
+            case "toolbox_talks":
+                return 1;
+            case "employee_form":
+                return 2;
+            case "an_post_garda_vetting":
                 return 3;
             default:
                 return -1; // Default or error case

@@ -61,12 +61,15 @@ public class employeesTrainingCheck extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
         // Retrieve arguments passed from the previous fragment
         if (getArguments() != null) {
             siteName = getArguments().getString("siteName");
             courseName = getArguments().getString("courseName");
             siteIndex = getArguments().getInt("siteIndex", -1);
             courseIndex = getArguments().getInt("courseIndex", -1);
+
 
 
             if (siteName == null || courseName == null || siteIndex == -1 || courseIndex == -1) {

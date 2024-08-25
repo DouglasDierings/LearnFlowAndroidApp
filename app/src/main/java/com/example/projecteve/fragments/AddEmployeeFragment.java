@@ -67,10 +67,10 @@ public class AddEmployeeFragment extends Fragment {
 
                 // Lista de cursos para todos os sites
                 List<Course> coursesList = new ArrayList<>();
-                coursesList.add(new Course("site_folder_sign_off", false));
-                coursesList.add(new Course("toolbox_talks", false));
-                coursesList.add(new Course("employee_form", false));
-                coursesList.add(new Course("an_post_garda_vetting", false));
+                coursesList.add(new Course("Site folder sign off", false));
+                coursesList.add(new Course("Toolbox talks", false));
+                coursesList.add(new Course("Employee form", false));
+                coursesList.add(new Course("An post garda vetting", false));
 
                 // Lista de sites do empregado
                 List<Site> sites = new ArrayList<>();
