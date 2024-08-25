@@ -17,6 +17,7 @@ import com.example.projecteve.R;
 import com.example.projecteve.adapters.EmployeeAdapterTrainingCheck;
 import com.example.projecteve.models.Employee;
 import com.example.projecteve.models.Site;
+import com.example.projecteve.models.Course;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,16 +62,12 @@ public class employeesTrainingCheck extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         // Retrieve arguments passed from the previous fragment
         if (getArguments() != null) {
             siteName = getArguments().getString("siteName");
             courseName = getArguments().getString("courseName");
             siteIndex = getArguments().getInt("siteIndex", -1);
             courseIndex = getArguments().getInt("courseIndex", -1);
-
-
 
             if (siteName == null || courseName == null || siteIndex == -1 || courseIndex == -1) {
                 Toast.makeText(getContext(), "Invalid data passed", Toast.LENGTH_SHORT).show();
@@ -107,10 +104,14 @@ public class employeesTrainingCheck extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Employee employee = snapshot.getValue(Employee.class);
 
-                    if (employee != null && employee.getSites() != null && siteIndex < employee.getSites().size()) {
-                        Site site = employee.getSites().get(siteIndex);
-                        if (site.getName().equals(siteName)) {
-                            employeeList.add(employee);
+                    if (employee != null && employee.getSites() != null) {
+                        for (int i = 0; i < employee.getSites().size(); i++) {
+                            Site site = employee.getSites().get(i);
+                            if (site.getName().equals(siteName)) {
+                                siteIndex = i; // Atualiza o siteIndex para o site encontrado
+                                employeeList.add(employee);
+                                break;
+                            }
                         }
                     }
                 }
@@ -134,8 +135,10 @@ public class employeesTrainingCheck extends Fragment {
                 Site site = employee.getSites().get(siteIndex);
 
                 if (site.getCoursesList() != null && courseIndex < site.getCoursesList().size()) {
-                    Boolean isCompleted = site.getCoursesList().get(courseIndex).getIsCompleted();
+                    Course course = site.getCoursesList().get(courseIndex);
+                    Boolean isCompleted = course.getIsCompleted();
 
+                    // Atualiza o status do curso para o funcionário
                     databaseReference.child(employee.getEmployeeNumber())
                             .child("sites")
                             .child(String.valueOf(siteIndex))

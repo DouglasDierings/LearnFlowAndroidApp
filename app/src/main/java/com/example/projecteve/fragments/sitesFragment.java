@@ -70,7 +70,7 @@ public class sitesFragment extends Fragment {
                 int siteCode = 1;
                 for (Map.Entry<String, Integer> entry : siteCounts.entrySet()) {
                     sitesList.add(new Site(siteCode,entry.getKey(), "Docklands", entry.getValue(), emptyCoursesList));
-                    siteCode++;
+
                 }
 
                 SitesAdapter adapter = new SitesAdapter(getContext(), sitesList);
