@@ -21,10 +21,10 @@ public class sitesTrainingsFragment extends Fragment {
 
     private View view;
     private TextView txtSiteName;
-    private Button btn_an_post_garda_vetting;
-    private Button btn_mcr_employee_form;
-    private Button btn_toolbox_talks;
-    private Button btn_site_folder_sign_off;
+    private Button btnAnPostGardaVetting;
+    private Button btnMcrEmployeeForm;
+    private Button btnToolboxTalks;
+    private Button btnSiteFolderSignOff;
     private int siteIndex;
     private FirebaseAuth firebaseAuth;
     private String currentUserId;
@@ -38,17 +38,14 @@ public class sitesTrainingsFragment extends Fragment {
         Toolbar toolbar = view.findViewById(R.id.toolbar);
 
         txtSiteName = view.findViewById(R.id.txt_site_name);
-        btn_an_post_garda_vetting = view.findViewById(R.id.btn_an_post_garda_vetting);
-        btn_mcr_employee_form = view.findViewById(R.id.btn_mcr_employee_form);
-        btn_toolbox_talks = view.findViewById(R.id.btn_toolbox_talks);
-        btn_site_folder_sign_off = view.findViewById(R.id.btn_site_folder_sign_off);
+        btnAnPostGardaVetting = view.findViewById(R.id.btn_an_post_garda_vetting);
+        btnMcrEmployeeForm = view.findViewById(R.id.btn_mcr_employee_form);
+        btnToolboxTalks = view.findViewById(R.id.btn_toolbox_talks);
+        btnSiteFolderSignOff = view.findViewById(R.id.btn_site_folder_sign_off);
 
         // Initialize Firebase Auth and get the current user
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-
-
-
 
         if (currentUser != null) {
             currentUserId = currentUser.getUid();
@@ -84,14 +81,14 @@ public class sitesTrainingsFragment extends Fragment {
         }
 
         if(txtSiteName.getText().toString().equals("Site 1")){
-            btn_an_post_garda_vetting.setVisibility(View.VISIBLE);
+            btnAnPostGardaVetting.setVisibility(View.VISIBLE);
         }
 
         // Set up click listeners for buttons
-        btn_an_post_garda_vetting.setOnClickListener(v -> navigateToEmployeesTrainingCheck("an_post_garda_vetting"));
-        btn_mcr_employee_form.setOnClickListener(v -> navigateToEmployeesTrainingCheck("employee_form"));
-        btn_toolbox_talks.setOnClickListener(v -> navigateToEmployeesTrainingCheck("toolbox_talks"));
-        btn_site_folder_sign_off.setOnClickListener(v -> navigateToEmployeesTrainingCheck("site_folder_sign_off"));
+        btnAnPostGardaVetting.setOnClickListener(v -> navigateToEmployeesTrainingCheck("An Post Garda Vetting"));
+        btnMcrEmployeeForm.setOnClickListener(v -> navigateToEmployeesTrainingCheck("Employee Form"));
+        btnToolboxTalks.setOnClickListener(v -> navigateToEmployeesTrainingCheck("Toolbox Talks"));
+        btnSiteFolderSignOff.setOnClickListener(v -> navigateToEmployeesTrainingCheck("Site Folder Sign-Off"));
 
         // Handle the back arrow click in the toolbar
         toolbar.setNavigationOnClickListener(v -> {
@@ -105,8 +102,6 @@ public class sitesTrainingsFragment extends Fragment {
     private void navigateToEmployeesTrainingCheck(String courseName) {
         // Determine the courseIndex based on the courseName
         int courseIndex = getCourseIndex(courseName);
-
-
 
         Bundle bundle = new Bundle();
         bundle.putString("siteName", txtSiteName.getText().toString());
@@ -126,14 +121,13 @@ public class sitesTrainingsFragment extends Fragment {
 
     private int getCourseIndex(String courseName) {
         switch (courseName) {
-
-            case "site_folder_sign_off":
+            case "Site Folder Sign-Off":
                 return 0;
-            case "toolbox_talks":
+            case "Toolbox Talks":
                 return 1;
-            case "employee_form":
+            case "Employee Form":
                 return 2;
-            case "an_post_garda_vetting":
+            case "An Post Garda Vetting":
                 return 3;
             default:
                 return -1; // Default or error case
