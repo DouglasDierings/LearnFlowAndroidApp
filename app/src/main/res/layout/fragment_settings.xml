@@ -12,32 +12,51 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-    <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_toolbar_background"
-        android:elevation="8dp"
-        android:layout_marginTop="20dp">
+        <!-- Toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_toolbar_background"
+            android:elevation="8dp">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Settings"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <Button
+            android:id="@+id/btn_log_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Settings"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
             android:layout_gravity="center"
-            android:textStyle="bold" />
+            android:layout_marginTop="200dp"
+            android:text="Log Out" />
 
-    </androidx.appcompat.widget.Toolbar>
+        <!-- Spacer View -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/btn_log_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_gravity="center"
-        android:text="Log Out" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Developed by Douglas Deirings" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Designed by Kelvin Dumas" />
     </LinearLayout>
 </FrameLayout>
