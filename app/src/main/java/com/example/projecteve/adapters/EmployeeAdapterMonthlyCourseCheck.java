@@ -1,81 +1,81 @@
 package com.example.projecteve.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.projecteve.R;
 import com.example.projecteve.models.Course;
 import com.example.projecteve.models.Employee;
-import com.example.projecteve.models.Site;
 
 import java.util.List;
 
-public class EmployeeAdapterMonthlyCourseCheck extends ArrayAdapter<Employee> {
-
-    private Context mContext;
-    private List<Employee> employeeList;
+public class EmployeeAdapterMonthlyCourseCheck extends BaseAdapter {
+    private Context context;
+    private List<Employee> employees;
     private int siteIndex;
     private int courseIndex;
     private String selectedMonth;
 
-    public EmployeeAdapterMonthlyCourseCheck(Context context, List<Employee> list, int siteIndex, int courseIndex,String selectedMonth) {
-        super(context, 0, list);
-        mContext = context;
-        employeeList = list;
+    public EmployeeAdapterMonthlyCourseCheck(Context context, List<Employee> employees, int siteIndex, int courseIndex, String selectedMonth) {
+        this.context = context;
+        this.employees = employees;
         this.siteIndex = siteIndex;
         this.courseIndex = courseIndex;
         this.selectedMonth = selectedMonth;
     }
 
+    public void setSelectedMonth(String selectedMonth) {
+        this.selectedMonth = selectedMonth;
+    }
+
+    @Override
+    public int getCount() {
+        return employees.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return employees.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View listItem = convertView;
-        if (listItem == null) {
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.item_employee_training_check, parent, false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_employee_training_check, parent, false);
         }
 
-        Employee currentEmployee = employeeList.get(position);
+        TextView tvEmployeeName = convertView.findViewById(R.id.tv_employee_name);
+        TextView tvEmployeeNumber = convertView.findViewById(R.id.tv_employee_number);
+        CheckBox cbCourseCompleted = convertView.findViewById(R.id.cb_course_completed);
 
-        TextView name = listItem.findViewById(R.id.tv_employee_name);
-        TextView employeeNumber = listItem.findViewById(R.id.tv_employee_number);
-        CheckBox courseCompleted = listItem.findViewById(R.id.cb_course_completed);
+        Employee employee = employees.get(position);
+        tvEmployeeName.setText(employee.getFirstName());
+        tvEmployeeNumber.setText(employee.getEmployeeNumber());
 
-        name.setText(currentEmployee.getFirstName() + " " + currentEmployee.getLastName());
-        employeeNumber.setText("Employee #" + currentEmployee.getEmployeeNumber());
+        Course course = employee.getSites().get(siteIndex).getCoursesList().get(courseIndex);
+        boolean isCompleted = course.isCompletedForMonth(selectedMonth);
 
-        if (currentEmployee.getSites() != null && siteIndex < currentEmployee.getSites().size()) {
-            Site site = currentEmployee.getSites().get(siteIndex);
+        Log.d("AdapterDebug", "Position: " + position + ", Employee: " + employee.getFirstName() + ", Course: " + course.getCourseName() + ", Month: " + selectedMonth + ", IsCompleted: " + isCompleted);
 
-            if (site.getCoursesList() != null && courseIndex < site.getCoursesList().size()) {
-                Course course = site.getCoursesList().get(courseIndex);
+        cbCourseCompleted.setChecked(isCompleted);
 
-                // Set initial checkbox state
-                courseCompleted.setChecked(course.getIsCompleted() != null && course.getIsCompleted());
+        cbCourseCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            course.setCompletionForMonth(selectedMonth, isChecked);
+            Log.d("AdapterDebug", "Updated Completion Status for " + course.getCourseName() + ": " + isChecked);
+            // Implement data update logic here
+        });
 
-                // Handle checkbox change
-                courseCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    course.setIsCompleted(isChecked);//OLHAR AQUI USAR SETMONTHCOMPLETITION
-                });
-            } else {
-                // Hide checkbox if course does not exist
-                courseCompleted.setVisibility(View.GONE);
-                Toast.makeText(mContext, "Course not found for employee: " + currentEmployee.getEmployeeNumber(), Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            // Hide checkbox if site does not exist
-            courseCompleted.setVisibility(View.GONE);
-            Toast.makeText(mContext, "Site not found for employee: " + currentEmployee.getEmployeeNumber(), Toast.LENGTH_SHORT).show();
-        }
-
-        return listItem;
+        return convertView;
     }
-
-    }
-
-
+}

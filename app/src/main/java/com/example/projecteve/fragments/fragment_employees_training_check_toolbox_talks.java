@@ -51,22 +51,21 @@ public class fragment_employees_training_check_toolbox_talks extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_employees_training_check_toolbox_talks, container, false);
         toolbar = view.findViewById(R.id.toolbar);
         employeeListView = view.findViewById(R.id.employee_list_view);
-        // Initialize the employee list
         employeeList = new ArrayList<>();
         btn_save_training = view.findViewById(R.id.btn_save_training);
         spinner_months = view.findViewById(R.id.spinner_months);
         tvCourseName = view.findViewById(R.id.tv_course_name);
 
+        // Toolbar setup
         toolbar.setNavigationOnClickListener(v -> {
             NavController navController = Navigation.findNavController(view);
             navController.popBackStack();
         });
 
-        // Retrieve arguments passed from the previous fragment
+        // Receive arguments
         if (getArguments() != null) {
             siteName = getArguments().getString("siteName");
             courseName = getArguments().getString("courseName");
@@ -80,27 +79,43 @@ public class fragment_employees_training_check_toolbox_talks extends Fragment {
             }
 
             tvCourseName.setText(courseName);
+            // Fetch employees after initializing
             fetchEmployeesForSite(siteName);
-
-            toolbar.setNavigationOnClickListener(v -> {
-                NavController navController = Navigation.findNavController(view);
-                navController.popBackStack();
-            });
-
-
         } else {
             Toast.makeText(getContext(), "No data passed", Toast.LENGTH_SHORT).show();
             NavController navController = Navigation.findNavController(view);
             navController.popBackStack();
         }
 
+        // Spinner setup
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.months_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_months.setAdapter(adapter);
+
+        spinner_months.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                selectedMonth = parentView.getItemAtPosition(position).toString();
+                Toast.makeText(getContext(), "Selected Month: " + selectedMonth, Toast.LENGTH_SHORT).show();
+                // Update the list view adapter with the new month
+                if (employeeAdapter != null) {
+                    employeeAdapter.setSelectedMonth(selectedMonth);
+                    employeeAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Handle case where no selection is made
+            }
+        });
 
         btn_save_training.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i = 0; i < employeeList.size(); i++) {
-                    Employee employee = employeeList.get(i);
-
+                // Iterate over each employee
+                for (Employee employee : employeeList) {
                     if (employee.getSites() != null && siteIndex != -1) {
                         Site site = employee.getSites().get(siteIndex);
 
@@ -110,12 +125,9 @@ public class fragment_employees_training_check_toolbox_talks extends Fragment {
                             if (course != null && course.getCourseName().equals(courseName)) {
                                 if (course.getMonthCompletion() != null && selectedMonth != null) {
                                     // Use the course's isCompleted field to determine if it's checked
-                                    boolean isChecked = course.getIsCompleted() != null && course.getIsCompleted();
+                                    boolean isChecked = course.getMonthCompletion().getOrDefault(selectedMonth, false);
 
-                                    // Update the selected month to true or false based on checkbox state
-                                    course.getMonthCompletion().put(selectedMonth, isChecked);
-
-                                    // Now update the Firebase database with the modified course
+                                    // Update the Firebase database with the modified course
                                     DatabaseReference databaseReference = FirebaseDatabase.getInstance()
                                             .getReference("employees")
                                             .child(employee.getEmployeeNumber())
@@ -134,7 +146,6 @@ public class fragment_employees_training_check_toolbox_talks extends Fragment {
                                                 } else {
                                                     Toast.makeText(getContext(), "Failed to update training", Toast.LENGTH_SHORT).show();
                                                 }
-                                                Log.d("Saving","Hello from here");
                                             });
                                 }
                             }
@@ -145,32 +156,9 @@ public class fragment_employees_training_check_toolbox_talks extends Fragment {
         });
 
 
-
-        // Set up the Spinner with an adapter
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.months_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_months.setAdapter(adapter);
-
-        // Set up the Spinner listener
-        spinner_months.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Get the selected item as a String
-                selectedMonth = parentView.getItemAtPosition(position).toString();
-                // Optional: Do something with the selected month, e.g., log or update UI
-                Toast.makeText(getContext(), "Selected Month: " + selectedMonth, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // Handle case where no selection is made, if necessary
-            }
-        });
-
         return view;
-
     }
+
     private void fetchEmployeesForSite(String siteName) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("employees");
 
@@ -195,7 +183,7 @@ public class fragment_employees_training_check_toolbox_talks extends Fragment {
                     }
                 }
 
-                // Pass selectedMonth to the adapter
+                // Initialize adapter with the selectedMonth
                 employeeAdapter = new EmployeeAdapterMonthlyCourseCheck(getContext(), employeeList, siteIndex, courseIndex, selectedMonth);
                 employeeListView.setAdapter(employeeAdapter);
             }
@@ -206,6 +194,6 @@ public class fragment_employees_training_check_toolbox_talks extends Fragment {
             }
         });
     }
-
-
 }
+
+
