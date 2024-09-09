@@ -15,5 +15,18 @@
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="forgot_password_instruction">Please enter your email address below, and we will send you instructions on how to reset your password</string>
 
-
+    <string-array name="months_array">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
 </resources>

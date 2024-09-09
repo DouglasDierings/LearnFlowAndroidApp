@@ -19,7 +19,9 @@ import com.example.projecteve.models.Employee;
 import com.example.projecteve.models.Site;
 import com.example.projecteve.utils.CheckAndSaveEmployee;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AddEmployeeFragment extends Fragment {
 
@@ -68,9 +70,10 @@ public class AddEmployeeFragment extends Fragment {
                 // Lista de cursos para todos os sites
                 List<Course> coursesList = new ArrayList<>();
                 coursesList.add(new Course("Site folder sign off", false));
-                coursesList.add(new Course("Toolbox talks", false));
                 coursesList.add(new Course("Employee form", false));
                 coursesList.add(new Course("An post garda vetting", false));
+                // For Toolbox talks, we use the static initializeMonthCompletion method to set month to false
+                coursesList.add(new Course("Toolbox Talks", Course.initializeMonthCompletion()));
 
                 // Lista de sites do empregado
                 List<Site> sites = new ArrayList<>();

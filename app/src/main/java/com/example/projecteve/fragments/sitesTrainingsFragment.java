@@ -84,11 +84,13 @@ public class sitesTrainingsFragment extends Fragment {
             btnAnPostGardaVetting.setVisibility(View.VISIBLE);
         }
 
+        //Criar um navegate que vai ate o outro fragment aqui
+
         // Set up click listeners for buttons
-        btnAnPostGardaVetting.setOnClickListener(v -> navigateToEmployeesTrainingCheck("An Post Garda Vetting"));
-        btnMcrEmployeeForm.setOnClickListener(v -> navigateToEmployeesTrainingCheck("Employee Form"));
-        btnToolboxTalks.setOnClickListener(v -> navigateToEmployeesTrainingCheck("Toolbox Talks"));
         btnSiteFolderSignOff.setOnClickListener(v -> navigateToEmployeesTrainingCheck("Site Folder Sign-Off"));
+        btnMcrEmployeeForm.setOnClickListener(v -> navigateToEmployeesTrainingCheck("Employee Form"));
+        btnAnPostGardaVetting.setOnClickListener(v -> navigateToEmployeesTrainingCheck("An Post Garda Vetting"));
+        btnToolboxTalks.setOnClickListener(v -> navigateToEmployeesTrainingCheckToolboxTalks("Toolbox Talks"));
 
         // Handle the back arrow click in the toolbar
         toolbar.setNavigationOnClickListener(v -> {
@@ -115,19 +117,45 @@ public class sitesTrainingsFragment extends Fragment {
         Log.d("sitesTrainingsFragment", "siteIndex: " + siteIndex);
         Log.d("sitesTrainingsFragment", "courseIndex: " + courseIndex);
 
+
+
+
         NavController navController = Navigation.findNavController(view);
         navController.navigate(R.id.action_sitesTranings_to_employeesTraningCheck, bundle);
+    }
+
+    private void navigateToEmployeesTrainingCheckToolboxTalks(String courseName) {
+        // Determine the courseIndex based on the courseName
+        int courseIndex = getCourseIndex(courseName);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("siteName", txtSiteName.getText().toString());
+        bundle.putString("courseName", courseName);
+        bundle.putInt("siteIndex", siteIndex);
+        bundle.putInt("courseIndex", courseIndex);
+
+        // Log the values to verify
+        Log.d("sitesTrainingsFragment", "siteName: " + txtSiteName.getText().toString());
+        Log.d("sitesTrainingsFragment", "courseName: " + courseName);
+        Log.d("sitesTrainingsFragment", "siteIndex: " + siteIndex);
+        Log.d("sitesTrainingsFragment", "courseIndex: " + courseIndex);
+
+
+
+
+        NavController navController = Navigation.findNavController(view);
+        navController.navigate(R.id.action_sitesTranings_to_fragment_employees_training_check_toolbox_talks, bundle);
     }
 
     private int getCourseIndex(String courseName) {
         switch (courseName) {
             case "Site Folder Sign-Off":
                 return 0;
-            case "Toolbox Talks":
-                return 1;
             case "Employee Form":
-                return 2;
+                return 1;
             case "An Post Garda Vetting":
+                return 2;
+            case "Toolbox Talks":
                 return 3;
             default:
                 return -1; // Default or error case

@@ -65,6 +65,14 @@
         <action
             android:id="@+id/action_sitesTranings_to_employeesTraningCheck"
             app:destination="@id/employeesTraningCheck" />
+        <action
+            android:id="@+id/action_sitesTranings_to_fragment_employees_training_check_toolbox_talks"
+            app:destination="@id/fragment_employees_training_check_toolbox_talks" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_employees_training_check_toolbox_talks"
+        android:name="com.example.projecteve.fragments.fragment_employees_training_check_toolbox_talks"
+        android:label="fragment_employees_training_check_toolbox_talks"
+        tools:layout="@layout/fragment_employees_training_check_toolbox_talks" />
 
 </navigation>

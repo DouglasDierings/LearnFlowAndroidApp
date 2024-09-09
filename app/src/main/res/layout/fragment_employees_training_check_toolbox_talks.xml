@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.fragment_employees_training_check_toolbox_talks">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/white">
+
+        <!-- Toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_toolbar_background"
+            android:elevation="8dp"
+            android:layout_marginTop="20dp"
+            app:navigationIcon="@drawable/ic_back_arrow"> <!-- Back Arrow Icon -->
+
+            <TextView
+                android:id="@+id/tv_course_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <!-- Month Spinner -->
+        <Spinner
+            android:id="@+id/spinner_months"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@android:color/black"
+            android:spinnerMode="dropdown"
+            android:entries="@array/months_array" />
+
+        <!-- Employee List -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Employees list"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:layout_gravity="center" />
+
+        <ListView
+            android:id="@+id/employee_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"
+            android:padding="16dp" />
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/btn_save_training"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Training"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/light_blue"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+</FrameLayout>
