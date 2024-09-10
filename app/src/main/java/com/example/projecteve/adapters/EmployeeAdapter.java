@@ -1,5 +1,6 @@
 package com.example.projecteve.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,34 +60,44 @@ public class EmployeeAdapter extends BaseAdapter {
         tvEmployeeNumber.setText(employee.getEmployeeNumber());
 
         imgDelete.setOnClickListener(v -> {
-            // Check if the position is valid before attempting to delete
-            if (position >= 0 && position < employeeList.size()) {
-                Employee employeeToRemove = employeeList.get(position);
+            // Show a confirmation dialog
+            new AlertDialog.Builder(context)
+                    .setTitle("Delete Employee")
+                    .setMessage("Are you sure you want to delete " + employee.getFirstName() + " " + employee.getLastName() + "?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        // Check if the position is valid before attempting to delete
+                        if (position >= 0 && position < employeeList.size()) {
+                            Employee employeeToRemove = employeeList.get(position);
 
-                // Remove employee from the list before Firebase operation
-                employeeList.remove(position);
-                notifyDataSetChanged();
+                            // Remove employee from the list before Firebase operation
+                            employeeList.remove(position);
+                            notifyDataSetChanged();
 
-                // Remove employee from Firebase
-                DatabaseReference employeeRef = FirebaseDatabase.getInstance().getReference()
-                        .child("employees")
-                        .child(employeeToRemove.getEmployeeNumber());
+                            // Remove employee from Firebase
+                            DatabaseReference employeeRef = FirebaseDatabase.getInstance().getReference()
+                                    .child("employees")
+                                    .child(employeeToRemove.getEmployeeNumber());
 
-                employeeRef.removeValue().addOnSuccessListener(aVoid -> {
-                    Toast.makeText(context, "Employee removed successfully", Toast.LENGTH_SHORT).show();
-                }).addOnFailureListener(e -> {
-                    // If the Firebase operation fails, add the employee back to the list
-                    employeeList.add(position, employeeToRemove);
-                    notifyDataSetChanged();
-                    Toast.makeText(context, "Failed to remove employee", Toast.LENGTH_SHORT).show();
-                });
-            } else {
-                Toast.makeText(context, "Failed to remove employee: Invalid index", Toast.LENGTH_SHORT).show();
-            }
+                            employeeRef.removeValue().addOnSuccessListener(aVoid -> {
+                                Toast.makeText(context, "Employee removed successfully", Toast.LENGTH_SHORT).show();
+                            }).addOnFailureListener(e -> {
+                                // If the Firebase operation fails, add the employee back to the list
+                                employeeList.add(position, employeeToRemove);
+                                notifyDataSetChanged();
+                                Toast.makeText(context, "Failed to remove employee", Toast.LENGTH_SHORT).show();
+                            });
+                        } else {
+                            Toast.makeText(context, "Failed to remove employee: Invalid index", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("No", (dialog, which) -> {
+                        // Dismiss the dialog and do nothing if "No" is clicked
+                        dialog.dismiss();
+                    })
+                    .show();
         });
-
-
 
         return convertView;
     }
+
 }
