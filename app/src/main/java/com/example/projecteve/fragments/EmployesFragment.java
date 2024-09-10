@@ -6,16 +6,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.projecteve.R;
-
 import com.example.projecteve.adapters.EmployeeAdapter;
 import com.example.projecteve.models.Employee;
 import com.google.firebase.database.DataSnapshot;
@@ -33,9 +35,11 @@ public class EmployesFragment extends Fragment {
     private ListView employeeListView;
     private EmployeeAdapter employeeAdapter;
     private List<Employee> employeeList;
+    private List<Employee> filteredEmployeeList; // List for filtering employees
     private DatabaseReference databaseReference;
-    private ProgressBar progressBar;  // Declare the ProgressBar
+    private ProgressBar progressBar;
     private Button btn_add_employee;
+    private EditText searchEditText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,16 +50,18 @@ public class EmployesFragment extends Fragment {
         btn_add_employee = view.findViewById(R.id.btn_add_employee);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         employeeListView = view.findViewById(R.id.employee_list);
-        progressBar = view.findViewById(R.id.progress_bar);  // Initialize the ProgressBar
+        progressBar = view.findViewById(R.id.progress_bar);
+        searchEditText = view.findViewById(R.id.search_bar); // Initialize the search EditText
 
-        btn_add_employee.setVisibility(view.GONE);
+        btn_add_employee.setVisibility(View.GONE);
 
         // Initialize Firebase reference
         databaseReference = FirebaseDatabase.getInstance().getReference().child("employees");
 
-        // Initialize employee list and adapter
+        // Initialize employee lists and adapter
         employeeList = new ArrayList<>();
-        employeeAdapter = new EmployeeAdapter(getContext(), employeeList);
+        filteredEmployeeList = new ArrayList<>();
+        employeeAdapter = new EmployeeAdapter(getContext(), filteredEmployeeList);
         employeeListView.setAdapter(employeeAdapter);
 
         // Show ProgressBar and hide ListView while loading data
@@ -64,6 +70,9 @@ public class EmployesFragment extends Fragment {
 
         // Fetch employees from Firebase
         fetchEmployeesFromDatabase();
+
+        // Set up the search functionality
+        setupSearchFunctionality();
 
         // Navigate to addemployee fragment
         btn_add_employee.setOnClickListener(v -> {
@@ -99,6 +108,10 @@ public class EmployesFragment extends Fragment {
                     }
                 }
 
+                // Copy the full employee list to the filtered list initially
+                filteredEmployeeList.clear();
+                filteredEmployeeList.addAll(employeeList);
+
                 // Notify the adapter about data changes to update the ListView
                 employeeAdapter.notifyDataSetChanged();
 
@@ -119,5 +132,42 @@ public class EmployesFragment extends Fragment {
             }
         });
     }
-}
 
+    private void setupSearchFunctionality() {
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // No action needed before text is changed
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                filterEmployees(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // No action needed after text is changed
+            }
+        });
+    }
+
+    private void filterEmployees(String query) {
+        filteredEmployeeList.clear();
+        if (query.isEmpty()) {
+            // If the search query is empty, show the full list
+            filteredEmployeeList.addAll(employeeList);
+        } else {
+            // Filter the employees based on the query
+            for (Employee employee : employeeList) {
+                if (employee.getFirstName().toLowerCase().contains(query.toLowerCase()) ||
+                        employee.getLastName().toLowerCase().contains(query.toLowerCase()) ||
+                        employee.getEmployeeNumber().toLowerCase().contains(query.toLowerCase())) {
+                    filteredEmployeeList.add(employee);
+                }
+            }
+        }
+        // Notify the adapter about the changes to update the ListView
+        employeeAdapter.notifyDataSetChanged();
+    }
+}
