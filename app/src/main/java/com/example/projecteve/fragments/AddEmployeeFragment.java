@@ -1,10 +1,6 @@
 package com.example.projecteve.fragments;
 
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +9,20 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.projecteve.R;
 import com.example.projecteve.models.Course;
 import com.example.projecteve.models.Employee;
 import com.example.projecteve.models.Site;
 import com.example.projecteve.utils.CheckAndSaveEmployee;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AddEmployeeFragment extends Fragment {
 
@@ -42,9 +43,9 @@ public class AddEmployeeFragment extends Fragment {
         edt_name = view.findViewById(R.id.edt_name);
         edt_surname = view.findViewById(R.id.edt_surname);
         edt_employee_number = view.findViewById(R.id.edt_employee_number);
-        cb_site1 = view.findViewById(R.id.cb_site1);
-        cb_site2 = view.findViewById(R.id.cb_site2);
-        cb_site3 = view.findViewById(R.id.cb_site3);
+        cb_site1 = view.findViewById(R.id.cb_anpost);
+        cb_site2 = view.findViewById(R.id.cb_cbre);
+        cb_site3 = view.findViewById(R.id.cb_corgan);
         btn_register = view.findViewById(R.id.btn_register);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
@@ -67,7 +68,7 @@ public class AddEmployeeFragment extends Fragment {
                     return;
                 }
 
-                // Lista de cursos para todos os sites
+
                 List<Course> coursesList = new ArrayList<>();
                 coursesList.add(new Course("Site folder sign off", false));
                 coursesList.add(new Course("Employee form", false));
@@ -75,16 +76,16 @@ public class AddEmployeeFragment extends Fragment {
                 // For Toolbox talks, we use the static initializeMonthCompletion method to set month to false
                 coursesList.add(new Course("Toolbox Talks", Course.initializeMonthCompletion()));
 
-                // Lista de sites do empregado
+
                 List<Site> sites = new ArrayList<>();
                 if (cb_site1.isChecked()) {
-                    sites.add(new Site("Site 1", "Docklands", new ArrayList<>(coursesList)));
+                    sites.add(new Site("An Post", "Docklands", new ArrayList<>(coursesList)));
                 }
                 if (cb_site2.isChecked()) {
-                    sites.add(new Site("Site 2", "Docklands", new ArrayList<>(coursesList)));
+                    sites.add(new Site("CBRE", "Docklands", new ArrayList<>(coursesList)));
                 }
                 if (cb_site3.isChecked()) {
-                    sites.add(new Site("Site 3", "Docklands", new ArrayList<>(coursesList)));
+                    sites.add(new Site("Corgan", "Docklands", new ArrayList<>(coursesList)));
                 }
 
                 Employee employee = new Employee(firstName, lastName, employeeNumber, sites);

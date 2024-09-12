@@ -4,7 +4,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class userModel {
+public class UserModel {
 
     private String id;
     private String firstName;
@@ -12,10 +12,10 @@ public class userModel {
     private String EmployeeNumber;
     private String email;
 
-    public userModel() {
+    public UserModel() {
     }
 
-    public userModel(String id, String firstName, String lastName, String email) {
+    public UserModel(String id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

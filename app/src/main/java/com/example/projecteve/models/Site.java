@@ -8,7 +8,6 @@ public class Site {
     private String location;
     private int numEmployees;
 
-    // Lista de cursos associados a este site
     private List<Course> coursesList;
 
     public Site() {

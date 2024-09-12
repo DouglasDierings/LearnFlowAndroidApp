@@ -1,4 +1,5 @@
 package com.example.projecteve;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,11 +9,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.projecteve.activity.login;
+import com.example.projecteve.activity.Login;
 import com.example.projecteve.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
-            Intent intent = new Intent(MainActivity.this, login.class);
+            Intent intent = new Intent(MainActivity.this, Login.class);
             startActivity(intent);
             finish();
         }

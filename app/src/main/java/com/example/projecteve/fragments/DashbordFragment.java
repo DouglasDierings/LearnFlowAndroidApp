@@ -2,18 +2,17 @@ package com.example.projecteve.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.example.projecteve.R;
-import com.example.projecteve.activity.login;
+import com.example.projecteve.activity.Login;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,15 +22,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class dashbordFragment extends Fragment {
+public class DashbordFragment extends Fragment {
 
     View view;
     FirebaseUser currentUser;
     DatabaseReference databaseReference;
+    ValueEventListener valueEventListener;
     private FirebaseAuth mAuth;
     private TextView txt_name;
     private String uid;
-    ValueEventListener valueEventListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,12 +57,12 @@ public class dashbordFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(dashbordFragment.this.getActivity(), "User not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DashbordFragment.this.getActivity(), "User not found", Toast.LENGTH_SHORT).show();
                 }
             };
             databaseReference.addValueEventListener(valueEventListener);
         } else {
-            startActivity(new Intent(getActivity(), login.class));
+            startActivity(new Intent(getActivity(), Login.class));
             getActivity().finish(); // Optional: finish the current activity
         }
 

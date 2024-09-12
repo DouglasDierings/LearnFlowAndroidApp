@@ -66,14 +66,11 @@ public class EmployeeAdapterMonthlyCourseCheck extends BaseAdapter {
         Course course = employee.getSites().get(siteIndex).getCoursesList().get(courseIndex);
         boolean isCompleted = course.isCompletedForMonth(selectedMonth);
 
-        Log.d("AdapterDebug", "Position: " + position + ", Employee: " + employee.getFirstName() + ", Course: " + course.getCourseName() + ", Month: " + selectedMonth + ", IsCompleted: " + isCompleted);
 
         cbCourseCompleted.setChecked(isCompleted);
 
         cbCourseCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
             course.setCompletionForMonth(selectedMonth, isChecked);
-            Log.d("AdapterDebug", "Updated Completion Status for " + course.getCourseName() + ": " + isChecked);
-            // Implement data update logic here
         });
 
         return convertView;

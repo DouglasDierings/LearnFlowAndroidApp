@@ -12,9 +12,6 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.projecteve.MainActivity;
 import com.example.projecteve.R;
@@ -25,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class login extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
 
     //Buttons
@@ -52,7 +49,7 @@ public class login extends AppCompatActivity {
         btn_register = findViewById(R.id.btn_register);
         btn_forgot_password = findViewById(R.id.btn_forgot_password);
 
-        //Do the login
+        //Do the Login
 
         btn_sign_in_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +67,7 @@ public class login extends AppCompatActivity {
                                         openMainScreen();
                                     } else {
                                         String error = Objects.requireNonNull(task.getException()).getMessage();
-                                        Toast.makeText(login.this, "" + error, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "" + error, Toast.LENGTH_SHORT).show();
                                         loginProgressBar.setVisibility(View.INVISIBLE);
                                     }
                                 }
@@ -97,19 +94,19 @@ public class login extends AppCompatActivity {
     }
 
     private void openMainScreen() {
-        Intent intent = new Intent(login.this, MainActivity.class);
+        Intent intent = new Intent(Login.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
     private void openRecoveryScreen() {
-        Intent intent = new Intent(login.this, forgotPassword.class);
+        Intent intent = new Intent(Login.this, ForgotPassword.class);
         startActivity(intent);
         finish();
     }
 
     private void openRegisterScreen() {
-        Intent intent = new Intent(login.this, register.class);
+        Intent intent = new Intent(Login.this, Register.class);
         startActivity(intent);
         finish();
     }

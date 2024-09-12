@@ -19,13 +19,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.projecteve.MainActivity;
 import com.example.projecteve.R;
-import com.example.projecteve.models.userModel;
+import com.example.projecteve.models.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class register extends AppCompatActivity {
+public class Register extends AppCompatActivity {
 
 
     private EditText edt_firstName_register;
@@ -37,7 +37,6 @@ public class register extends AppCompatActivity {
     private Button btn_log_in;
     private Button btn_login_register;
     private ImageView back_button;
-
     private FirebaseAuth mAuth;
 
     @Override
@@ -54,7 +53,7 @@ public class register extends AppCompatActivity {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Intent intent = new Intent(register.this, MainActivity.class);
+                Intent intent = new Intent(Register.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -62,8 +61,6 @@ public class register extends AppCompatActivity {
 
         //callback
         getOnBackPressedDispatcher().addCallback(this, callback);
-
-
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -83,7 +80,7 @@ public class register extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(register.this, login.class);
+                Intent intent = new Intent(Register.this, Login.class);
                 startActivity(intent);
                 finish();
             }
@@ -92,20 +89,18 @@ public class register extends AppCompatActivity {
         btn_log_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(register.this, login.class);
+                Intent intent = new Intent(Register.this, Login.class);
                 startActivity(intent);
                 finish();
             }
         });
 
 
-
-
         btn_login_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                userModel userModel = new userModel();
+                UserModel userModel = new UserModel();
 
                 userModel.setFirstName(edt_firstName_register.getText().toString());
                 userModel.setLastName(edt_lastName_register.getText().toString());
@@ -123,26 +118,26 @@ public class register extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     userModel.setId(mAuth.getUid());
                                     userModel.save();
-                                    Toast.makeText(register.this, "register", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Register.this, "Register", Toast.LENGTH_SHORT).show();
                                     openMainScreen();
                                 } else {
                                     String error = task.getException().getMessage();
-                                    Toast.makeText(register.this, "" + error, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Register.this, "" + error, Toast.LENGTH_SHORT).show();
 
                                 }
                             }
                         });
                     } else {
-                        Toast.makeText(register.this, "Password did not match!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Register.this, "Password did not match!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(register.this, "Fill in all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Fill in all fields", Toast.LENGTH_SHORT).show();
                 }
             }
 
 
             private void openMainScreen() {
-                Intent intent = new Intent(register.this, MainActivity.class);
+                Intent intent = new Intent(Register.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }

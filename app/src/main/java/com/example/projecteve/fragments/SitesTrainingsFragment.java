@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import com.example.projecteve.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class sitesTrainingsFragment extends Fragment {
+public class SitesTrainingsFragment extends Fragment {
 
     private View view;
     private TextView txtSiteName;
@@ -50,8 +49,7 @@ public class sitesTrainingsFragment extends Fragment {
         if (currentUser != null) {
             currentUserId = currentUser.getUid();
         } else {
-            // Handle the case where the user is not authenticated (e.g., navigate to login screen)
-            // You can implement the necessary logic here
+            // Handle the case where the user is not authenticated
             return view;
         }
 
@@ -62,17 +60,14 @@ public class sitesTrainingsFragment extends Fragment {
 
             // Use switch to determine siteIndex
             switch (siteName) {
-                case "Site 1":
+                case "An Post":
                     siteIndex = 0;
                     break;
-                case "Site 2":
+                case "CBRE":
                     siteIndex = 1;
                     break;
-                case "Site 3":
+                case "Corgan":
                     siteIndex = 2;
-                    break;
-                case "Site 4":
-                    siteIndex = 3;
                     break;
                 default:
                     siteIndex = -1; // Default or error case
@@ -80,11 +75,10 @@ public class sitesTrainingsFragment extends Fragment {
             }
         }
 
-        if(txtSiteName.getText().toString().equals("Site 1")){
+        if(txtSiteName.getText().toString().equals("An Post")){
             btnAnPostGardaVetting.setVisibility(View.VISIBLE);
         }
 
-        //Criar um navegate que vai ate o outro fragment aqui
 
         // Set up click listeners for buttons
         btnSiteFolderSignOff.setOnClickListener(v -> navigateToEmployeesTrainingCheck("Site Folder Sign-Off"));
@@ -111,14 +105,6 @@ public class sitesTrainingsFragment extends Fragment {
         bundle.putInt("siteIndex", siteIndex);
         bundle.putInt("courseIndex", courseIndex);
 
-        // Log the values to verify
-        Log.d("sitesTrainingsFragment", "siteName: " + txtSiteName.getText().toString());
-        Log.d("sitesTrainingsFragment", "courseName: " + courseName);
-        Log.d("sitesTrainingsFragment", "siteIndex: " + siteIndex);
-        Log.d("sitesTrainingsFragment", "courseIndex: " + courseIndex);
-
-
-
 
         NavController navController = Navigation.findNavController(view);
         navController.navigate(R.id.action_sitesTranings_to_employeesTraningCheck, bundle);
@@ -133,13 +119,6 @@ public class sitesTrainingsFragment extends Fragment {
         bundle.putString("courseName", courseName);
         bundle.putInt("siteIndex", siteIndex);
         bundle.putInt("courseIndex", courseIndex);
-
-        // Log the values to verify
-        Log.d("sitesTrainingsFragment", "siteName: " + txtSiteName.getText().toString());
-        Log.d("sitesTrainingsFragment", "courseName: " + courseName);
-        Log.d("sitesTrainingsFragment", "siteIndex: " + siteIndex);
-        Log.d("sitesTrainingsFragment", "courseIndex: " + courseIndex);
-
 
 
 

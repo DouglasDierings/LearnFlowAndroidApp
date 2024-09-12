@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -26,7 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class forgotPassword extends AppCompatActivity {
+public class ForgotPassword extends AppCompatActivity {
 
     private ImageView backArrow;
     private Button btn_send_email;
@@ -43,11 +41,10 @@ public class forgotPassword extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
 
-
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Intent intent = new Intent(forgotPassword.this, MainActivity.class);
+                Intent intent = new Intent(ForgotPassword.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -57,7 +54,6 @@ public class forgotPassword extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, callback);
 
 
-
         backArrow = findViewById(R.id.backArrow);
         btn_send_email = findViewById(R.id.btn_send_email);
         edt_email_forgot_password = findViewById(R.id.edt_email_forgot_password);
@@ -65,7 +61,7 @@ public class forgotPassword extends AppCompatActivity {
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(forgotPassword.this, login.class);
+                Intent intent = new Intent(ForgotPassword.this, Login.class);
                 startActivity(intent);
                 finish();
 
@@ -78,14 +74,14 @@ public class forgotPassword extends AppCompatActivity {
                 String email = edt_email_forgot_password.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(forgotPassword.this, "Please enter your registered email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPassword.this, "Please enter your registered email", Toast.LENGTH_SHORT).show();
                     edt_email_forgot_password.setError("Email is required");
                     edt_email_forgot_password.requestFocus();
 
 
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 
-                    Toast.makeText(forgotPassword.this, "Please enter valid email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPassword.this, "Please enter valid email", Toast.LENGTH_SHORT).show();
                     edt_email_forgot_password.setError("Valid email is required");
                     edt_email_forgot_password.requestFocus();
 
@@ -94,7 +90,7 @@ public class forgotPassword extends AppCompatActivity {
                 }
 
 
-                Intent intent = new Intent(forgotPassword.this, login.class);
+                Intent intent = new Intent(ForgotPassword.this, Login.class);
                 startActivity(intent);
                 finish();
 
@@ -109,10 +105,10 @@ public class forgotPassword extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
-                            Toast.makeText(forgotPassword.this, "Please check your inbox for password reset link", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgotPassword.this, "Please check your inbox for password reset link", Toast.LENGTH_SHORT).show();
 
-                        }else{
-                            Toast.makeText(forgotPassword.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ForgotPassword.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                         }
 
 

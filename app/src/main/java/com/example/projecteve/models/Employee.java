@@ -11,7 +11,6 @@ public class Employee {
     private String lastName;
     private String employeeNumber;
 
-    // Lista de sites associados a este funcionário
     private List<Site> sites;
 
     public Employee(String firstName, String lastName, String employeeNumber, List<Site> sites) {
@@ -59,7 +58,7 @@ public class Employee {
         this.sites = sites;
     }
 
-    // Método para salvar no Firebase
+
     public void saveEmployee() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("employees").child(getEmployeeNumber()).setValue(this);

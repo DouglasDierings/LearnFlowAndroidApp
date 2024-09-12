@@ -1,7 +1,6 @@
 package com.example.projecteve.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import androidx.navigation.Navigation;
 
 import com.example.projecteve.R;
 import com.example.projecteve.adapters.EmployeeAdapterMonthlyCourseCheck;
-import com.example.projecteve.adapters.EmployeeAdapterTrainingCheck;
 import com.example.projecteve.models.Course;
 import com.example.projecteve.models.Employee;
 import com.example.projecteve.models.Site;
@@ -33,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class fragment_employees_training_check_toolbox_talks extends Fragment {
+public class FragmentEmployeesTrainingCheckToolboxTalks extends Fragment {
     View view;
     private Toolbar toolbar;
     private int siteIndex;

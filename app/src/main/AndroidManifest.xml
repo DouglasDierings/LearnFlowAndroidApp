@@ -16,13 +16,13 @@
             android:name=".fragments.AddEmployeeFragment"
             android:exported="false" />
         <activity
-            android:name=".activity.forgotPassword"
+            android:name=".activity.ForgotPassword"
             android:exported="false" />
         <activity
-            android:name=".activity.register"
+            android:name=".activity.Register"
             android:exported="false" />
         <activity
-            android:name=".activity.login"
+            android:name=".activity.Login"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

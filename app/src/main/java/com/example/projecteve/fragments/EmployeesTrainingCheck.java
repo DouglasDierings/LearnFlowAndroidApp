@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class employeesTrainingCheck extends Fragment {
+public class EmployeesTrainingCheck extends Fragment {
 
     private View view;
     private ListView employeeListView;
@@ -138,7 +138,7 @@ public class employeesTrainingCheck extends Fragment {
                     Course course = site.getCoursesList().get(courseIndex);
                     Boolean isCompleted = course.getIsCompleted();
 
-                    // Atualiza o status do curso para o funcionário
+
                     databaseReference.child(employee.getEmployeeNumber())
                             .child("sites")
                             .child(String.valueOf(siteIndex))
