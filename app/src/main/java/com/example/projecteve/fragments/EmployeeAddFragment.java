@@ -24,7 +24,7 @@ import com.example.projecteve.utils.CheckAndSaveEmployee;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddEmployeeFragment extends Fragment {
+public class EmployeeAddFragment extends Fragment {
 
     View view;
     EditText edt_name;
@@ -64,7 +64,7 @@ public class AddEmployeeFragment extends Fragment {
                 String employeeNumber = edt_employee_number.getText().toString();
 
                 if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(employeeNumber)) {
-                    Toast.makeText(AddEmployeeFragment.this.getActivity(), "Please complete all fields.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EmployeeAddFragment.this.getActivity(), "Please complete all fields.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -90,17 +90,17 @@ public class AddEmployeeFragment extends Fragment {
 
                 Employee employee = new Employee(firstName, lastName, employeeNumber, sites);
 
-                CheckAndSaveEmployee.checkAndSaveEmployee(AddEmployeeFragment.this, employee, new CheckAndSaveEmployee.EmployeeCallback() {
+                CheckAndSaveEmployee.checkAndSaveEmployee(EmployeeAddFragment.this, employee, new CheckAndSaveEmployee.EmployeeCallback() {
                     @Override
                     public void onSuccess(String message) {
-                        Toast.makeText(AddEmployeeFragment.this.getActivity(), message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EmployeeAddFragment.this.getActivity(), message, Toast.LENGTH_SHORT).show();
                         NavController navController = Navigation.findNavController(view);
                         navController.popBackStack();
                     }
 
                     @Override
                     public void onFailure(String error) {
-                        Toast.makeText(AddEmployeeFragment.this.getActivity(), error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EmployeeAddFragment.this.getActivity(), error, Toast.LENGTH_SHORT).show();
                     }
                 });
             }

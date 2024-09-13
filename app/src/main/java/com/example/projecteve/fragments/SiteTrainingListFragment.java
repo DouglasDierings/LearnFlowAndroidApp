@@ -16,7 +16,7 @@ import com.example.projecteve.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SitesTrainingsFragment extends Fragment {
+public class SiteTrainingListFragment extends Fragment {
 
     private View view;
     private TextView txtSiteName;

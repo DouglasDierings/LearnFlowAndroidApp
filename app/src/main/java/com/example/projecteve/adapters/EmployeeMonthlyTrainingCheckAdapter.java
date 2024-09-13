@@ -1,7 +1,6 @@
 package com.example.projecteve.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,14 @@ import com.example.projecteve.models.Employee;
 
 import java.util.List;
 
-public class EmployeeAdapterMonthlyCourseCheck extends BaseAdapter {
+public class EmployeeMonthlyTrainingCheckAdapter extends BaseAdapter {
     private Context context;
     private List<Employee> employees;
     private int siteIndex;
     private int courseIndex;
     private String selectedMonth;
 
-    public EmployeeAdapterMonthlyCourseCheck(Context context, List<Employee> employees, int siteIndex, int courseIndex, String selectedMonth) {
+    public EmployeeMonthlyTrainingCheckAdapter(Context context, List<Employee> employees, int siteIndex, int courseIndex, String selectedMonth) {
         this.context = context;
         this.employees = employees;
         this.siteIndex = siteIndex;

@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SitesFragment extends Fragment {
+public class SitesListFragment extends Fragment {
 
     private View view;
     List<Course> emptyCoursesList = new ArrayList<>();

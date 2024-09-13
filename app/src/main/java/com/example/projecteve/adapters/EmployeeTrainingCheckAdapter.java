@@ -16,14 +16,14 @@ import com.example.projecteve.models.Site;
 
 import java.util.List;
 
-public class EmployeeAdapterTrainingCheck extends ArrayAdapter<Employee> {
+public class EmployeeTrainingCheckAdapter extends ArrayAdapter<Employee> {
 
     private Context mContext;
     private List<Employee> employeeList;
     private int siteIndex;
     private int courseIndex;
 
-    public EmployeeAdapterTrainingCheck(Context context, List<Employee> list, int siteIndex, int courseIndex) {
+    public EmployeeTrainingCheckAdapter(Context context, List<Employee> list, int siteIndex, int courseIndex) {
         super(context, 0, list);
         mContext = context;
         employeeList = list;

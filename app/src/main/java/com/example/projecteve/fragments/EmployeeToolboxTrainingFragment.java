@@ -18,7 +18,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.projecteve.R;
-import com.example.projecteve.adapters.EmployeeAdapterMonthlyCourseCheck;
+import com.example.projecteve.adapters.EmployeeMonthlyTrainingCheckAdapter;
 import com.example.projecteve.models.Course;
 import com.example.projecteve.models.Employee;
 import com.example.projecteve.models.Site;
@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentEmployeesTrainingCheckToolboxTalks extends Fragment {
+public class EmployeeToolboxTrainingFragment extends Fragment {
     View view;
     private Toolbar toolbar;
     private int siteIndex;
@@ -43,7 +43,7 @@ public class FragmentEmployeesTrainingCheckToolboxTalks extends Fragment {
     private TextView tvCourseName;
     private ListView employeeListView;
     private List<Employee> employeeList;
-    private EmployeeAdapterMonthlyCourseCheck employeeAdapter;
+    private EmployeeMonthlyTrainingCheckAdapter employeeAdapter;
     private String selectedMonth;
 
     @Override
@@ -182,7 +182,7 @@ public class FragmentEmployeesTrainingCheckToolboxTalks extends Fragment {
                 }
 
                 // Initialize adapter with the selectedMonth
-                employeeAdapter = new EmployeeAdapterMonthlyCourseCheck(getContext(), employeeList, siteIndex, courseIndex, selectedMonth);
+                employeeAdapter = new EmployeeMonthlyTrainingCheckAdapter(getContext(), employeeList, siteIndex, courseIndex, selectedMonth);
                 employeeListView.setAdapter(employeeAdapter);
             }
 

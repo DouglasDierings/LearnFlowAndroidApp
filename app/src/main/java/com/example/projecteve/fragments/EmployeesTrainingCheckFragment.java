@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projecteve.R;
-import com.example.projecteve.adapters.EmployeeAdapterTrainingCheck;
+import com.example.projecteve.adapters.EmployeeTrainingCheckAdapter;
 import com.example.projecteve.models.Employee;
 import com.example.projecteve.models.Site;
 import com.example.projecteve.models.Course;
@@ -27,12 +27,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeesTrainingCheck extends Fragment {
+public class EmployeesTrainingCheckFragment extends Fragment {
 
     private View view;
     private ListView employeeListView;
     private List<Employee> employeeList;
-    private EmployeeAdapterTrainingCheck employeeAdapter;
+    private EmployeeTrainingCheckAdapter employeeAdapter;
     private int siteIndex;
     private int courseIndex;
     private String siteName;
@@ -116,7 +116,7 @@ public class EmployeesTrainingCheck extends Fragment {
                     }
                 }
 
-                employeeAdapter = new EmployeeAdapterTrainingCheck(getContext(), employeeList, siteIndex, courseIndex);
+                employeeAdapter = new EmployeeTrainingCheckAdapter(getContext(), employeeList, siteIndex, courseIndex);
                 employeeListView.setAdapter(employeeAdapter);
             }
 

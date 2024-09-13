@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/menu_dashboard"
-        android:name="com.example.projecteve.fragments.DashbordFragment"
+        android:name="com.example.projecteve.fragments.UserDashboardFragment"
         android:label="fragment_dashbord"
         tools:layout="@layout/fragment_dashbord" />
 
     <fragment
         android:id="@+id/menu_employees"
-        android:name="com.example.projecteve.fragments.EmployesFragment"
+        android:name="com.example.projecteve.fragments.EmployeeListFragment"
         android:label="fragment_employess"
         tools:layout="@layout/fragment_employess" >
         <action
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/menu_sites"
-        android:name="com.example.projecteve.fragments.SitesFragment"
+        android:name="com.example.projecteve.fragments.SitesListFragment"
         android:label="fragment_sites"
         tools:layout="@layout/fragment_sites" >
         <action
@@ -36,12 +36,12 @@
 
     <fragment
         android:id="@+id/menu_settings"
-        android:name="com.example.projecteve.fragments.SettingsFragment"
+        android:name="com.example.projecteve.fragments.AppSettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/addEmployee"
-        android:name="com.example.projecteve.fragments.AddEmployeeFragment"
+        android:name="com.example.projecteve.fragments.EmployeeAddFragment"
         android:label="fragment_add_employee"
         tools:layout="@layout/fragment_add_employee" >
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/employeesTraningCheck"
-        android:name="com.example.projecteve.fragments.EmployeesTrainingCheck"
+        android:name="com.example.projecteve.fragments.EmployeesTrainingCheckFragment"
         android:label="fragment_employees_traning_check"
         tools:layout="@layout/fragment_employees_training_check" >
         <action
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/sitesTranings"
-        android:name="com.example.projecteve.fragments.SitesTrainingsFragment"
+        android:name="com.example.projecteve.fragments.SiteTrainingListFragment"
         android:label="fragment_sites_tranings"
         tools:layout="@layout/fragment_sites_tranings" >
         <action
@@ -74,12 +74,12 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_employees_training_check_toolbox_talks"
-        android:name="com.example.projecteve.fragments.FragmentEmployeesTrainingCheckToolboxTalks"
+        android:name="com.example.projecteve.fragments.EmployeeToolboxTrainingFragment"
         android:label="fragment_employees_training_check_toolbox_talks"
         tools:layout="@layout/fragment_employees_training_check_toolbox_talks" />
     <fragment
         android:id="@+id/employeeDetails"
-        android:name="com.example.projecteve.fragments.EmployeeDetails"
+        android:name="com.example.projecteve.fragments.EmployeeDetailsFragment"
         android:label="fragment_employee_details"
         tools:layout="@layout/fragment_employee_details" >
         <action

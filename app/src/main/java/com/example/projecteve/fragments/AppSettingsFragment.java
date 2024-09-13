@@ -15,7 +15,7 @@ import com.example.projecteve.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class SettingsFragment extends Fragment {
+public class AppSettingsFragment extends Fragment {
 
     View view;
     private Button btn_log_out;

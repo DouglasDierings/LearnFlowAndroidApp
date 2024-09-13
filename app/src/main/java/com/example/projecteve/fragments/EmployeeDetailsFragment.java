@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.example.projecteve.R;
 
 
-public class EmployeeDetails extends Fragment {
+public class EmployeeDetailsFragment extends Fragment {
 
     View view;
     @Override

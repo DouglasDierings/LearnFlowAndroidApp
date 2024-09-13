@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployesFragment extends Fragment {
+public class EmployeeListFragment extends Fragment {
 
     private View view;
     private ListView employeeListView;
@@ -79,7 +79,7 @@ public class EmployesFragment extends Fragment {
             // Get the NavController from the view
             NavController navController = Navigation.findNavController(view);
 
-            // Navigate to the AddEmployeeFragment fragment using its action ID
+            // Navigate to the EmployeeAddFragment fragment using its action ID
             navController.navigate(R.id.action_menu_employees_to_addEmployee);
         });
 

@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class DashbordFragment extends Fragment {
+public class UserDashboardFragment extends Fragment {
 
     View view;
     FirebaseUser currentUser;
@@ -57,7 +57,7 @@ public class DashbordFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(DashbordFragment.this.getActivity(), "User not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserDashboardFragment.this.getActivity(), "User not found", Toast.LENGTH_SHORT).show();
                 }
             };
             databaseReference.addValueEventListener(valueEventListener);
