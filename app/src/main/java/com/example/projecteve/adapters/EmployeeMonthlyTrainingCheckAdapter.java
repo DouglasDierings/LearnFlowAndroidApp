@@ -68,9 +68,9 @@ public class EmployeeMonthlyTrainingCheckAdapter extends BaseAdapter {
 
         cbCourseCompleted.setChecked(isCompleted);
 
-        cbCourseCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            course.setCompletionForMonth(selectedMonth, isChecked);
-        });
+        cbCourseCompleted.setOnCheckedChangeListener((buttonView, isChecked) ->
+            course.setCompletionForMonth(selectedMonth, isChecked)
+        );
 
         return convertView;
     }

@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity {
                                 openMainScreen();
                             } else {
                                 String error = Objects.requireNonNull(task.getException()).getMessage();
-                                Toast.makeText(Login.this, "" + error, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, error, Toast.LENGTH_SHORT).show();
                                 loginProgressBar.setVisibility(View.INVISIBLE);
                             }
                         });

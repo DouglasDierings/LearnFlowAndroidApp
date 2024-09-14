@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,16 +20,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.projecteve.MainActivity;
 import com.example.projecteve.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPassword extends AppCompatActivity {
 
-    private ImageView backArrow;
-    private Button btn_send_email;
-
-    private EditText edt_email_forgot_password;
+    private EditText edtEmailForgotPassword;
 
 
     private FirebaseAuth mAuth;
@@ -54,36 +49,33 @@ public class ForgotPassword extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, callback);
 
 
-        backArrow = findViewById(R.id.backArrow);
-        btn_send_email = findViewById(R.id.btn_send_email);
-        edt_email_forgot_password = findViewById(R.id.edt_email_forgot_password);
+        ImageView backArrow = findViewById(R.id.backArrow);
+        Button btnSendEmail = findViewById(R.id.btn_send_email);
+        edtEmailForgotPassword = findViewById(R.id.edt_email_forgot_password);
 
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ForgotPassword.this, Login.class);
-                startActivity(intent);
-                finish();
+        backArrow.setOnClickListener(v -> {
+            Intent intent = new Intent(ForgotPassword.this, Login.class);
+            startActivity(intent);
+            finish();
 
-            }
         });
 
-        btn_send_email.setOnClickListener(new View.OnClickListener() {
+        btnSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = edt_email_forgot_password.getText().toString();
+                String email = edtEmailForgotPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(ForgotPassword.this, "Please enter your registered email", Toast.LENGTH_SHORT).show();
-                    edt_email_forgot_password.setError("Email is required");
-                    edt_email_forgot_password.requestFocus();
+                    edtEmailForgotPassword.setError("Email is required");
+                    edtEmailForgotPassword.requestFocus();
 
 
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 
                     Toast.makeText(ForgotPassword.this, "Please enter valid email", Toast.LENGTH_SHORT).show();
-                    edt_email_forgot_password.setError("Valid email is required");
-                    edt_email_forgot_password.requestFocus();
+                    edtEmailForgotPassword.setError("Valid email is required");
+                    edtEmailForgotPassword.requestFocus();
 
                 } else {
                     resetPassword(email);
@@ -99,20 +91,17 @@ public class ForgotPassword extends AppCompatActivity {
             private void resetPassword(String email) {
 
                 mAuth = FirebaseAuth.getInstance();
-                mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+                mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
 
-                        if (task.isSuccessful()) {
+                    if (task.isSuccessful()) {
 
-                            Toast.makeText(ForgotPassword.this, "Please check your inbox for password reset link", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPassword.this, "Please check your inbox for password reset link", Toast.LENGTH_SHORT).show();
 
-                        } else {
-                            Toast.makeText(ForgotPassword.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                        }
-
-
+                    } else {
+                        Toast.makeText(ForgotPassword.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                     }
+
+
                 });
 
             }

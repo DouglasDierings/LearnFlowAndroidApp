@@ -31,29 +31,30 @@ import java.util.List;
 
 public class EmployeeListFragment extends Fragment {
 
-    private View view;
+
     private ListView employeeListView;
     private EmployeeAdapter employeeAdapter;
     private List<Employee> employeeList;
     private List<Employee> filteredEmployeeList; // List for filtering employees
     private DatabaseReference databaseReference;
     private ProgressBar progressBar;
-    private Button btn_add_employee;
+    private Button btnAddEmployee;
     private EditText searchEditText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view;
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_employess, container, false);
 
-        btn_add_employee = view.findViewById(R.id.btn_add_employee);
+        btnAddEmployee = view.findViewById(R.id.btn_add_employee);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         employeeListView = view.findViewById(R.id.employee_list);
         progressBar = view.findViewById(R.id.progress_bar);
         searchEditText = view.findViewById(R.id.search_bar); // Initialize the search EditText
 
-        btn_add_employee.setVisibility(View.GONE);
+        btnAddEmployee.setVisibility(View.GONE);
 
         // Initialize Firebase reference
         databaseReference = FirebaseDatabase.getInstance().getReference().child("employees");
@@ -74,8 +75,8 @@ public class EmployeeListFragment extends Fragment {
         // Set up the search functionality
         setupSearchFunctionality();
 
-        // Navigate to addemployee fragment
-        btn_add_employee.setOnClickListener(v -> {
+        // Navigate to employee fragment
+        btnAddEmployee.setOnClickListener(v -> {
             // Get the NavController from the view
             NavController navController = Navigation.findNavController(view);
 
@@ -118,7 +119,7 @@ public class EmployeeListFragment extends Fragment {
                 // Hide ProgressBar and show ListView after data is loaded
                 progressBar.setVisibility(View.GONE);
                 employeeListView.setVisibility(View.VISIBLE);
-                btn_add_employee.setVisibility(view.VISIBLE);
+                btnAddEmployee.setVisibility(View.VISIBLE);
             }
 
             @Override
