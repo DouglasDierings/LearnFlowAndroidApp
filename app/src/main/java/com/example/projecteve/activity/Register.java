@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.projecteve.MainActivity;
 import com.example.projecteve.R;
 import com.example.projecteve.models.UserModel;
+import com.example.projecteve.utils.CheckRegisterNumberAuthorization;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
@@ -30,6 +31,7 @@ public class Register extends AppCompatActivity {
     private EditText edtLastNameRegister;
     private EditText edtEmailRegister;
     private EditText edtEmployeeNumber;
+    private EditText edtAuthorizationNumber;
     private EditText edtPasswordRegister;
     private EditText edtConfirmationPasswordRegister;
     private FirebaseAuth mAuth;
@@ -68,6 +70,7 @@ public class Register extends AppCompatActivity {
         edtLastNameRegister = findViewById(R.id.edt_lastName_register);
         edtEmailRegister = findViewById(R.id.edt_email_register);
         edtEmployeeNumber = findViewById(R.id.edt_employee_number);
+        edtAuthorizationNumber = findViewById(R.id.edt_authorization_number);
         edtPasswordRegister = findViewById(R.id.edt_password_register);
         edtConfirmationPasswordRegister = findViewById(R.id.edt_confirmation_password_register);
 
@@ -96,26 +99,33 @@ public class Register extends AppCompatActivity {
                 userModel.setLastName(edtLastNameRegister.getText().toString());
                 userModel.setEmail(edtEmailRegister.getText().toString());
                 userModel.setEmployeeNumber(edtEmployeeNumber.getText().toString());
+                Integer authorizationNumber = Integer.parseInt(edtAuthorizationNumber.getText().toString());
                 String password = edtPasswordRegister.getText().toString();
                 String passwordConfirmation = edtConfirmationPasswordRegister.getText().toString();
 
 
                 if (!TextUtils.isEmpty(userModel.getFirstName()) && !TextUtils.isEmpty(userModel.getLastName()) && !TextUtils.isEmpty(userModel.getEmail()) && !TextUtils.isEmpty(userModel.getEmployeeNumber()) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(passwordConfirmation)) {
-                    if (password.equals(passwordConfirmation)) {
-                        mAuth.createUserWithEmailAndPassword(userModel.getEmail(), password).addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                userModel.setId(mAuth.getUid());
-                                userModel.save();
-                                Toast.makeText(Register.this, "Register", Toast.LENGTH_SHORT).show();
-                                openMainScreen();
-                            } else {
-                                String error = Objects.requireNonNull(task.getException()).getMessage();
-                                Toast.makeText(Register.this, error, Toast.LENGTH_SHORT).show();
 
-                            }
-                        });
-                    } else {
-                        Toast.makeText(Register.this, "Password did not match!", Toast.LENGTH_SHORT).show();
+                    if (CheckRegisterNumberAuthorization.checkRegisterNumberAuthorization(authorizationNumber)) {
+
+                        if (password.equals(passwordConfirmation)) {
+                            mAuth.createUserWithEmailAndPassword(userModel.getEmail(), password).addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    userModel.setId(mAuth.getUid());
+                                    userModel.save();
+                                    Toast.makeText(Register.this, "Register", Toast.LENGTH_SHORT).show();
+                                    openMainScreen();
+                                } else {
+                                    String error = Objects.requireNonNull(task.getException()).getMessage();
+                                    Toast.makeText(Register.this, error, Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                        } else {
+                            Toast.makeText(Register.this, "Password did not match", Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        Toast.makeText(Register.this, "Authorization number is not correct", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(Register.this, "Fill in all fields", Toast.LENGTH_SHORT).show();

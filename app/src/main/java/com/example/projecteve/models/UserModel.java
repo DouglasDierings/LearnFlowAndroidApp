@@ -9,7 +9,7 @@ public class UserModel {
     private String id;
     private String firstName;
     private String lastName;
-    private String EmployeeNumber;
+    private String employeeNumber;
     private String email;
 
     public UserModel() {
@@ -55,9 +55,10 @@ public class UserModel {
         this.email = email;
     }
 
-    public String getEmployeeNumber() {return EmployeeNumber;}
+    public String getEmployeeNumber() {return employeeNumber;}
 
-    public void setEmployeeNumber(String employeeNumber) {EmployeeNumber = employeeNumber;}
+    public void setEmployeeNumber(String employeeNumber) {
+        this.employeeNumber = employeeNumber;}
 
     public void save(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();

@@ -29,20 +29,21 @@ import java.util.List;
 
 public class EmployeesTrainingCheckFragment extends Fragment {
 
-    private View view;
+
     private ListView employeeListView;
     private List<Employee> employeeList;
     private EmployeeTrainingCheckAdapter employeeAdapter;
     private int siteIndex;
     private int courseIndex;
-    private String siteName;
-    private String courseName;
+
+
     private TextView tvCourseName;
     private Toolbar toolbar;
     private Button saveButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view;
         view = inflater.inflate(R.layout.fragment_employees_training_check, container, false);
 
         // Initialize UI components
@@ -60,6 +61,8 @@ public class EmployeesTrainingCheckFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        String courseName;
+        String siteName;
         super.onViewCreated(view, savedInstanceState);
 
         // Retrieve arguments passed from the previous fragment

@@ -1,11 +1,5 @@
 package com.example.projecteve.utils;
 
-import android.widget.Toast;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import com.example.projecteve.models.Employee;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -17,7 +11,7 @@ public class CheckAndSaveEmployee {
         void onFailure(String error);
     }
 
-    public static void checkAndSaveEmployee(Fragment fragment, final Employee employee, final EmployeeCallback callback) {
+    public static void checkAndSaveEmployee(final Employee employee, final EmployeeCallback callback) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("employees").child(employee.getEmployeeNumber()).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

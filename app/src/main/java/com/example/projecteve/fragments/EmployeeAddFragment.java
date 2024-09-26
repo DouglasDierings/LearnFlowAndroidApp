@@ -88,7 +88,7 @@ public class EmployeeAddFragment extends Fragment {
 
             Employee employee = new Employee(firstName, lastName, employeeNumber, sites);
 
-            CheckAndSaveEmployee.checkAndSaveEmployee(EmployeeAddFragment.this, employee, new CheckAndSaveEmployee.EmployeeCallback() {
+            CheckAndSaveEmployee.checkAndSaveEmployee(employee, new CheckAndSaveEmployee.EmployeeCallback() {
                 @Override
                 public void onSuccess(String message) {
                     Toast.makeText(EmployeeAddFragment.this.getActivity(), message, Toast.LENGTH_SHORT).show();

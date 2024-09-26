@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private ActivityMainBinding binding;
-    private NavHostFragment navHostFragment;
     private NavController navController;
 
     @Override
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initNavigation() {
-        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.bottomNavigation, navController);
 

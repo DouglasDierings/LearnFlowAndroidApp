@@ -109,43 +109,40 @@ public class EmployeeToolboxTrainingFragment extends Fragment {
             }
         });
 
-        btn_save_training.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Iterate over each employee
-                for (Employee employee : employeeList) {
-                    if (employee.getSites() != null && siteIndex != -1) {
-                        Site site = employee.getSites().get(siteIndex);
+        btn_save_training.setOnClickListener(view -> {
+            // Iterate over each employee
+            for (Employee employee : employeeList) {
+                if (employee.getSites() != null && siteIndex != -1) {
+                    Site site = employee.getSites().get(siteIndex);
 
-                        if (site != null && site.getCoursesList() != null && courseIndex != -1) {
-                            Course course = site.getCoursesList().get(courseIndex);
+                    if (site != null && site.getCoursesList() != null && courseIndex != -1) {
+                        Course course = site.getCoursesList().get(courseIndex);
 
-                            if (course != null && course.getCourseName().equals(courseName)) {
-                                if (course.getMonthCompletion() != null && selectedMonth != null) {
-                                    // Use the course's isCompleted field to determine if it's checked
-                                    boolean isChecked = course.getMonthCompletion().getOrDefault(selectedMonth, false);
+                        if (course != null && course.getCourseName().equals(courseName)) {
+                            if (course.getMonthCompletion() != null && selectedMonth != null) {
+                                // Use the course's isCompleted field to determine if it's checked
+                                boolean isChecked = course.getMonthCompletion().getOrDefault(selectedMonth, false);
 
-                                    // Update the Firebase database with the modified course
-                                    DatabaseReference databaseReference = FirebaseDatabase.getInstance()
-                                            .getReference("employees")
-                                            .child(employee.getEmployeeNumber())
-                                            .child("sites")
-                                            .child(String.valueOf(siteIndex))
-                                            .child("coursesList")
-                                            .child(String.valueOf(courseIndex))
-                                            .child("monthCompletion")
-                                            .child(selectedMonth);
+                                // Update the Firebase database with the modified course
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                                        .getReference("employees")
+                                        .child(employee.getEmployeeNumber())
+                                        .child("sites")
+                                        .child(String.valueOf(siteIndex))
+                                        .child("coursesList")
+                                        .child(String.valueOf(courseIndex))
+                                        .child("monthCompletion")
+                                        .child(selectedMonth);
 
-                                    // Update the monthCompletion value for the selected month
-                                    databaseReference.setValue(isChecked)
-                                            .addOnCompleteListener(task -> {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(getContext(), "Training updated successfully for " + selectedMonth, Toast.LENGTH_SHORT).show();
-                                                } else {
-                                                    Toast.makeText(getContext(), "Failed to update training", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                }
+                                // Update the monthCompletion value for the selected month
+                                databaseReference.setValue(isChecked)
+                                        .addOnCompleteListener(task -> {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(getContext(), "Training updated successfully for " + selectedMonth, Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(getContext(), "Failed to update training", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                             }
                         }
                     }
