@@ -1,5 +1,6 @@
 package com.example.projecteve.fragments;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.projecteve.R;
+import com.example.projecteve.utils.ResetMonthlyCourses;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -24,9 +26,9 @@ public class SiteTrainingListFragment extends Fragment {
     private Button btnMcrEmployeeForm;
     private Button btnToolboxTalks;
     private Button btnSiteFolderSignOff;
+    private Button btnResetMonthlyCourses;
     private int siteIndex;
     private FirebaseAuth firebaseAuth;
-    private String currentUserId;
 
 
     @Override
@@ -41,13 +43,14 @@ public class SiteTrainingListFragment extends Fragment {
         btnMcrEmployeeForm = view.findViewById(R.id.btn_mcr_employee_form);
         btnToolboxTalks = view.findViewById(R.id.btn_toolbox_talks);
         btnSiteFolderSignOff = view.findViewById(R.id.btn_site_folder_sign_off);
+        btnResetMonthlyCourses = view.findViewById(R.id.btn_reset_monthly_courses);
 
         // Initialize Firebase Auth and get the current user
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
         if (currentUser != null) {
-            currentUserId = currentUser.getUid();
+            String currentUserId = currentUser.getUid();
         } else {
             // Handle the case where the user is not authenticated
             return view;
@@ -91,6 +94,25 @@ public class SiteTrainingListFragment extends Fragment {
             NavController navController = Navigation.findNavController(view);
             navController.popBackStack();  // Navigates back when the back arrow is clicked
         });
+
+        btnResetMonthlyCourses.setOnClickListener(view -> {
+            // Create an AlertDialog to confirm the action
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Reset Monthly Courses")
+                    .setMessage("Are you sure you want to reset all monthly courses ?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        // If user confirms, call the reset method
+                        ResetMonthlyCourses.resetMonthlyCourses();
+                    })
+                    .setNegativeButton("No", (dialog, which) -> {
+                        // If user cancels, just dismiss the dialog
+                        dialog.dismiss();
+                    })
+                    .show();
+        });
+
+
+
 
         return view;
     }
@@ -140,4 +162,7 @@ public class SiteTrainingListFragment extends Fragment {
                 return -1; // Default or error case
         }
     }
+
+
+
 }
