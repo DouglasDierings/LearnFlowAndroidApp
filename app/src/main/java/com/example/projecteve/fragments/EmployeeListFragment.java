@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.example.projecteve.R;
 import com.example.projecteve.adapters.EmployeeAdapter;
 import com.example.projecteve.models.Employee;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +33,6 @@ import java.util.List;
 
 public class EmployeeListFragment extends Fragment {
 
-
     private ListView employeeListView;
     private EmployeeAdapter employeeAdapter;
     private List<Employee> employeeList;
@@ -40,6 +41,7 @@ public class EmployeeListFragment extends Fragment {
     private ProgressBar progressBar;
     private Button btnAddEmployee;
     private EditText searchEditText;
+    private String userId; // Store the current user's ID
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,8 +58,17 @@ public class EmployeeListFragment extends Fragment {
 
         btnAddEmployee.setVisibility(View.GONE);
 
-        // Initialize Firebase reference
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("employees");
+        // Get current user ID from Firebase Auth
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            userId = currentUser.getUid();
+        } else {
+            Toast.makeText(getContext(), "User not authenticated.", Toast.LENGTH_SHORT).show();
+            return view; // Exit if no user is authenticated
+        }
+
+        // Initialize Firebase reference for the specific user
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("employees");
 
         // Initialize employee lists and adapter
         employeeList = new ArrayList<>();
@@ -101,7 +112,7 @@ public class EmployeeListFragment extends Fragment {
                 // Clear the previous employee list
                 employeeList.clear();
 
-                // Iterate through all children in the "employees" node
+                // Iterate through all children in the "employees" node for the specific user
                 for (DataSnapshot employeeSnapshot : snapshot.getChildren()) {
                     Employee employee = employeeSnapshot.getValue(Employee.class);
                     if (employee != null) {

@@ -20,6 +20,7 @@ import com.example.projecteve.models.Course;
 import com.example.projecteve.models.Employee;
 import com.example.projecteve.models.Site;
 import com.example.projecteve.utils.CheckAndSaveEmployee;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,14 +67,12 @@ public class EmployeeAddFragment extends Fragment {
                 return;
             }
 
-
             List<Course> coursesList = new ArrayList<>();
             coursesList.add(new Course("Site folder sign off", false));
             coursesList.add(new Course("Employee form", false));
             coursesList.add(new Course("An post garda vetting", false));
             // For Toolbox talks, we use the static initializeMonthCompletion method to set month to false
             coursesList.add(new Course("Toolbox Talks", Course.initializeMonthCompletion()));
-
 
             List<Site> sites = new ArrayList<>();
             if (cbSite1.isChecked()) {
@@ -88,7 +87,11 @@ public class EmployeeAddFragment extends Fragment {
 
             Employee employee = new Employee(firstName, lastName, employeeNumber, sites);
 
-            CheckAndSaveEmployee.checkAndSaveEmployee(employee, new CheckAndSaveEmployee.EmployeeCallback() {
+            // Obtain userId from FirebaseAuth
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            // Pass the userId to checkAndSaveEmployee
+            CheckAndSaveEmployee.checkAndSaveEmployee(userId, employee, new CheckAndSaveEmployee.EmployeeCallback() {
                 @Override
                 public void onSuccess(String message) {
                     Toast.makeText(EmployeeAddFragment.this.getActivity(), message, Toast.LENGTH_SHORT).show();

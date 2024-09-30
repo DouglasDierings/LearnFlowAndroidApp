@@ -29,7 +29,7 @@ public class SiteTrainingListFragment extends Fragment {
     private Button btnResetMonthlyCourses;
     private int siteIndex;
     private FirebaseAuth firebaseAuth;
-
+    private String currentUserId; // Add a variable to store userId
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +50,7 @@ public class SiteTrainingListFragment extends Fragment {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
         if (currentUser != null) {
-            String currentUserId = currentUser.getUid();
+            currentUserId = currentUser.getUid(); // Save the userId
         } else {
             // Handle the case where the user is not authenticated
             return view;
@@ -82,7 +82,6 @@ public class SiteTrainingListFragment extends Fragment {
             btnAnPostGardaVetting.setVisibility(View.VISIBLE);
         }
 
-
         // Set up click listeners for buttons
         btnSiteFolderSignOff.setOnClickListener(v -> navigateToEmployeesTrainingCheck("Site Folder Sign-Off"));
         btnMcrEmployeeForm.setOnClickListener(v -> navigateToEmployeesTrainingCheck("Employee Form"));
@@ -99,10 +98,10 @@ public class SiteTrainingListFragment extends Fragment {
             // Create an AlertDialog to confirm the action
             new AlertDialog.Builder(requireContext())
                     .setTitle("Reset Monthly Courses")
-                    .setMessage("Are you sure you want to reset all monthly courses ?")
+                    .setMessage("Are you sure you want to reset all monthly courses?")
                     .setPositiveButton("Yes", (dialog, which) -> {
-                        // If user confirms, call the reset method
-                        ResetMonthlyCourses.resetMonthlyCourses();
+                        // If user confirms, call the reset method with the userId
+                        ResetMonthlyCourses.resetMonthlyCourses(currentUserId); // Pass the userId here
                     })
                     .setNegativeButton("No", (dialog, which) -> {
                         // If user cancels, just dismiss the dialog
@@ -110,9 +109,6 @@ public class SiteTrainingListFragment extends Fragment {
                     })
                     .show();
         });
-
-
-
 
         return view;
     }
@@ -127,7 +123,6 @@ public class SiteTrainingListFragment extends Fragment {
         bundle.putInt("siteIndex", siteIndex);
         bundle.putInt("courseIndex", courseIndex);
 
-
         NavController navController = Navigation.findNavController(view);
         navController.navigate(R.id.action_sitesTranings_to_employeesTraningCheck, bundle);
     }
@@ -141,8 +136,6 @@ public class SiteTrainingListFragment extends Fragment {
         bundle.putString("courseName", courseName);
         bundle.putInt("siteIndex", siteIndex);
         bundle.putInt("courseIndex", courseIndex);
-
-
 
         NavController navController = Navigation.findNavController(view);
         navController.navigate(R.id.action_sitesTranings_to_fragment_employees_training_check_toolbox_talks, bundle);
@@ -162,7 +155,5 @@ public class SiteTrainingListFragment extends Fragment {
                 return -1; // Default or error case
         }
     }
-
-
 
 }

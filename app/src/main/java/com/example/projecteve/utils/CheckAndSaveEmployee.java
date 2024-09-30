@@ -11,16 +11,19 @@ public class CheckAndSaveEmployee {
         void onFailure(String error);
     }
 
-    public static void checkAndSaveEmployee(final Employee employee, final EmployeeCallback callback) {
+    // Add userId as a parameter to ensure data is saved in the correct user branch
+    public static void checkAndSaveEmployee(final String userId, final Employee employee, final EmployeeCallback callback) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        reference.child("employees").child(employee.getEmployeeNumber()).get().addOnCompleteListener(task -> {
+
+        // Check if the employee already exists under the given userId
+        reference.child("users").child(userId).child("employees").child(employee.getEmployeeNumber()).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 if (task.getResult().exists()) {
-                    // Employee with the same number already exists
-                    callback.onFailure("Employee number already exists.");
+                    // Employee with the same number already exists for this user
+                    callback.onFailure("Employee number already exists for this user.");
                 } else {
-                    // Save the new employee
-                    employee.saveEmployee();
+                    // Save the new employee under the specific userId
+                    employee.saveEmployee(userId);
                     callback.onSuccess(employee.getFirstName() + " was added.");
                 }
             } else {

@@ -1,6 +1,5 @@
 package com.example.projecteve.utils;
 
-import android.app.AlertDialog;
 import com.example.projecteve.models.Employee;
 import com.example.projecteve.models.Site;
 import com.example.projecteve.models.Course;
@@ -10,16 +9,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.List;
 import java.util.Map;
 
 public class ResetMonthlyCourses {
 
     private static final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-    public static void resetMonthlyCourses() {
-        // Fetch all employees from Firebase
-        databaseReference.child("employees").addListenerForSingleValueEvent(new ValueEventListener() {
+    public static void resetMonthlyCourses(final String userId) {
+        // Fetch all employees for the specific user from Firebase
+        databaseReference.child("users").child(userId).child("employees").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot employeeSnapshot : dataSnapshot.getChildren()) {
@@ -42,8 +40,8 @@ public class ResetMonthlyCourses {
                                 }
                             }
                         }
-                        // Save the updated employee data back to Firebase
-                        employee.saveEmployee();
+                        // Save the updated employee data back to Firebase under the user's branch
+                        employee.saveEmployee(userId);
                     }
                 }
             }

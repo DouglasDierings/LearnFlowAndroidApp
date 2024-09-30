@@ -59,8 +59,9 @@ public class Employee {
     }
 
 
-    public void saveEmployee() {
+    public void saveEmployee(String userId) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        reference.child("employees").child(getEmployeeNumber()).setValue(this);
+        reference.child("users").child(userId).child("employees").child(getEmployeeNumber()).setValue(this);
     }
+
 }

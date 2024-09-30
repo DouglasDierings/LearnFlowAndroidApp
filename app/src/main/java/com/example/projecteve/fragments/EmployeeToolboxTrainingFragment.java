@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -22,6 +23,8 @@ import com.example.projecteve.adapters.EmployeeMonthlyTrainingCheckAdapter;
 import com.example.projecteve.models.Course;
 import com.example.projecteve.models.Employee;
 import com.example.projecteve.models.Site;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,29 +36,38 @@ import java.util.List;
 
 public class EmployeeToolboxTrainingFragment extends Fragment {
     View view;
-    private Toolbar toolbar;
     private int siteIndex;
     private int courseIndex;
-    private String siteName;
     private String courseName;
     private Button btn_save_training;
     private Spinner spinner_months;
-    private TextView tvCourseName;
     private ListView employeeListView;
     private List<Employee> employeeList;
     private EmployeeMonthlyTrainingCheckAdapter employeeAdapter;
     private String selectedMonth;
+    private String userId; // Variable to store userId
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_employees_training_check_toolbox_talks, container, false);
-        toolbar = view.findViewById(R.id.toolbar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         employeeListView = view.findViewById(R.id.employee_list_view);
         employeeList = new ArrayList<>();
         btn_save_training = view.findViewById(R.id.btn_save_training);
         spinner_months = view.findViewById(R.id.spinner_months);
-        tvCourseName = view.findViewById(R.id.tv_course_name);
+        TextView tvCourseName = view.findViewById(R.id.tv_course_name);
+
+        // Get current user ID from Firebase Auth
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            userId = currentUser.getUid(); // Store userId
+        } else {
+            Toast.makeText(getContext(), "User not authenticated", Toast.LENGTH_SHORT).show();
+            NavController navController = Navigation.findNavController(view);
+            navController.popBackStack();
+            return view; // Exit if user is not authenticated
+        }
 
         // Toolbar setup
         toolbar.setNavigationOnClickListener(v -> {
@@ -65,7 +77,7 @@ public class EmployeeToolboxTrainingFragment extends Fragment {
 
         // Receive arguments
         if (getArguments() != null) {
-            siteName = getArguments().getString("siteName");
+            String siteName = getArguments().getString("siteName");
             courseName = getArguments().getString("courseName");
             siteIndex = getArguments().getInt("siteIndex", -1);
             courseIndex = getArguments().getInt("courseIndex", -1);
@@ -125,7 +137,8 @@ public class EmployeeToolboxTrainingFragment extends Fragment {
 
                                 // Update the Firebase database with the modified course
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance()
-                                        .getReference("employees")
+                                        .getReference("users").child(userId)
+                                        .child("employees")
                                         .child(employee.getEmployeeNumber())
                                         .child("sites")
                                         .child(String.valueOf(siteIndex))
@@ -155,7 +168,8 @@ public class EmployeeToolboxTrainingFragment extends Fragment {
     }
 
     private void fetchEmployeesForSite(String siteName) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("employees");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReference("users").child(userId).child("employees");
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -184,11 +198,9 @@ public class EmployeeToolboxTrainingFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getContext(), "Failed to fetch employees", Toast.LENGTH_SHORT).show();
             }
         });
     }
 }
-
-

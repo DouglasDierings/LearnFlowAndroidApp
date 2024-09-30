@@ -18,6 +18,8 @@ import com.example.projecteve.adapters.SitesAdapter;
 import com.example.projecteve.models.Course;
 import com.example.projecteve.models.Employee;
 import com.example.projecteve.models.Site;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +34,8 @@ import java.util.Map;
 public class SitesListFragment extends Fragment {
 
     private View view;
-    List<Course> emptyCoursesList = new ArrayList<>();
+    private List<Course> emptyCoursesList = new ArrayList<>();
+    private String userId; // Add a variable to store the user ID
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,8 +46,18 @@ public class SitesListFragment extends Fragment {
         // ListView setup
         ListView listView = view.findViewById(R.id.lv_sites);
 
-        // Firebase reference to fetch employees
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("employees");
+        // Get current user ID from Firebase Auth
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            userId = currentUser.getUid();
+        } else {
+            Log.e("Firebase", "User not authenticated");
+            return view; // Exit if no user is authenticated
+        }
+
+        // Firebase reference to fetch employees under the current user's branch
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("users").child(userId).child("employees");
 
         // Listener to retrieve employees and count Site participation
         reference.addValueEventListener(new ValueEventListener() {
@@ -55,7 +68,7 @@ public class SitesListFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Employee employee = snapshot.getValue(Employee.class);
                     if (employee != null) {
-                        List<Site> sites = employee.getSites(); // Obtém a lista de sites do funcionário
+                        List<Site> sites = employee.getSites(); // Get the list of sites from the employee
                         if (sites != null) {
                             for (Site site : sites) {
                                 String siteName = site.getName();
@@ -69,8 +82,7 @@ public class SitesListFragment extends Fragment {
                 List<Site> sitesList = new ArrayList<>();
                 int siteCode = 1;
                 for (Map.Entry<String, Integer> entry : siteCounts.entrySet()) {
-                    sitesList.add(new Site(siteCode,entry.getKey(), "Docklands", entry.getValue(), emptyCoursesList));
-
+                    sitesList.add(new Site(siteCode, entry.getKey(), "Docklands", entry.getValue(), emptyCoursesList));
                 }
 
                 SitesAdapter adapter = new SitesAdapter(getContext(), sitesList);

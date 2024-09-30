@@ -18,6 +18,8 @@ import com.example.projecteve.adapters.EmployeeTrainingCheckAdapter;
 import com.example.projecteve.models.Employee;
 import com.example.projecteve.models.Site;
 import com.example.projecteve.models.Course;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,17 +31,16 @@ import java.util.List;
 
 public class EmployeesTrainingCheckFragment extends Fragment {
 
-
     private ListView employeeListView;
     private List<Employee> employeeList;
     private EmployeeTrainingCheckAdapter employeeAdapter;
     private int siteIndex;
     private int courseIndex;
 
-
     private TextView tvCourseName;
     private Toolbar toolbar;
     private Button saveButton;
+    private String userId; // Add variable for userId
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +55,17 @@ public class EmployeesTrainingCheckFragment extends Fragment {
 
         // Initialize the employee list
         employeeList = new ArrayList<>();
+
+        // Get current user ID from Firebase Auth
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            userId = currentUser.getUid(); // Store userId
+        } else {
+            Toast.makeText(getContext(), "User not authenticated", Toast.LENGTH_SHORT).show();
+            NavController navController = Navigation.findNavController(view);
+            navController.popBackStack();
+            return view; // Exit if user is not authenticated
+        }
 
         // Handle fragment arguments and initialization in onViewCreated
         return view;
@@ -96,7 +108,8 @@ public class EmployeesTrainingCheckFragment extends Fragment {
     }
 
     private void fetchEmployeesForSite(String siteName) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("employees");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("users").child(userId).child("employees");
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -111,7 +124,7 @@ public class EmployeesTrainingCheckFragment extends Fragment {
                         for (int i = 0; i < employee.getSites().size(); i++) {
                             Site site = employee.getSites().get(i);
                             if (site.getName().equals(siteName)) {
-                                siteIndex = i; // Atualiza o siteIndex para o site encontrado
+                                siteIndex = i; // Update siteIndex for the found site
                                 employeeList.add(employee);
                                 break;
                             }
@@ -131,7 +144,8 @@ public class EmployeesTrainingCheckFragment extends Fragment {
     }
 
     private void saveTrainingStatus() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("employees");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("users").child(userId).child("employees");
 
         for (Employee employee : employeeList) {
             if (employee.getSites() != null && siteIndex < employee.getSites().size()) {
@@ -140,7 +154,6 @@ public class EmployeesTrainingCheckFragment extends Fragment {
                 if (site.getCoursesList() != null && courseIndex < site.getCoursesList().size()) {
                     Course course = site.getCoursesList().get(courseIndex);
                     Boolean isCompleted = course.getIsCompleted();
-
 
                     databaseReference.child(employee.getEmployeeNumber())
                             .child("sites")
